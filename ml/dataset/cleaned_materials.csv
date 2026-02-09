@@ -1,0 +1,11 @@
+id,material_name,material_type,strength_rating,weight_capacity,biodegradability_score,recyclability_percentage,co2_emission_score,cost_per_unit,co2_impact_index,cost_efficiency_index,material_suitability_score
+1,Corrugated Cardboard,Paper,7,20.0,8,85,4.2,12.0,0.49411764705882355,0.5833333333333334,21.779999999999998
+2,Recycled Paperboard,Paper,6,15.0,9,90,3.8,10.0,0.4222222222222222,0.6,22.720000000000002
+3,Molded Pulp,Pulp,8,25.0,9,95,3.1,14.0,0.3263157894736842,0.5714285714285714,24.59
+4,Biodegradable Plastic,Bioplastic,9,30.0,6,60,5.5,18.0,0.9166666666666666,0.5,16.849999999999998
+5,Compostable Plastic,Bioplastic,8,28.0,7,65,4.9,17.0,0.7538461538461538,0.47058823529411764,17.810000000000002
+6,Reusable Plastic Crate,Plastic,10,50.0,2,40,7.8,25.0,1.95,0.4,11.82
+7,Glass Packaging,Glass,9,40.0,1,30,8.5,22.0,2.8333333333333335,0.4090909090909091,9.05
+8,Aluminum Packaging,Metal,8,35.0,3,75,6.2,20.0,0.8266666666666667,0.4,18.48
+9,Bamboo Packaging,Natural Fiber,7,22.0,9,80,3.5,16.0,0.4375,0.4375,21.15
+10,Bagasse Packaging,Natural Fiber,6,18.0,10,85,2.9,15.0,0.3411764705882353,0.4,22.11
