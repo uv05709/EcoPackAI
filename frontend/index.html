@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoPackAI Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="header">
+            <h1>EcoPackAI</h1>
+            <p>Sustainable packaging recommendation interface</p>
+        </header>
+
+        <section class="card">
+            <h2>Backend Connection</h2>
+            <div class="grid two">
+                <label>
+                    API Base URL
+                    <input id="apiBaseUrl" value="http://127.0.0.1:5000" />
+                </label>
+                <button id="healthBtn" type="button">Check Health</button>
+            </div>
+            <pre id="healthOutput" class="output"></pre>
+        </section>
+
+        <section class="card">
+            <h2>Dataset Recommendation</h2>
+            <button id="datasetRecommendBtn" type="button">Get Best Material From Dataset</button>
+            <pre id="datasetOutput" class="output"></pre>
+        </section>
+
+        <section class="card">
+            <h2>Custom Recommendation</h2>
+            <form id="recommendForm">
+                <div class="grid two">
+                    <label>Material Name<input id="materialName" value="Custom Candidate" /></label>
+                    <label>Material Type<select id="materialType"></select></label>
+                    <label>Strength Rating<input id="strengthRating" type="number" step="0.01" value="7.5" /></label>
+                    <label>Weight Capacity<input id="weightCapacity" type="number" step="0.01" value="50" /></label>
+                    <label>Biodegradability Score<input id="biodegradabilityScore" type="number" step="0.01" value="8" /></label>
+                    <label>Recyclability %<input id="recyclabilityPercentage" type="number" step="0.01" value="85" /></label>
+                    <label>Cost Efficiency Index<input id="costEfficiencyIndex" type="number" step="0.01" value="3.2" /></label>
+                    <label>CO2 Impact Index<input id="co2ImpactIndex" type="number" step="0.01" value="0.8" /></label>
+                    <label>Material Suitability Score<input id="materialSuitabilityScore" type="number" step="0.01" value="7.4" /></label>
+                </div>
+                <button type="submit">Run Custom Recommendation</button>
+            </form>
+            <pre id="customOutput" class="output"></pre>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

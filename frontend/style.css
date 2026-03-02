@@ -1,0 +1,100 @@
+:root {
+    --bg: #f4f7f1;
+    --card: #ffffff;
+    --primary: #1f6f4a;
+    --primary-dark: #174f35;
+    --border: #cbd8ce;
+    --text: #1b2620;
+    --muted: #586a5f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top right, #d8ead7, var(--bg) 50%);
+    color: var(--text);
+}
+
+.app {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.header p {
+    margin: 6px 0 22px;
+    color: var(--muted);
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.grid {
+    display: grid;
+    gap: 10px;
+}
+
+.grid.two {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 5px;
+}
+
+input,
+select,
+button {
+    font-size: 0.95rem;
+    border-radius: 8px;
+}
+
+input,
+select {
+    border: 1px solid var(--border);
+    padding: 10px;
+}
+
+button {
+    background: var(--primary);
+    color: #fff;
+    border: 0;
+    padding: 11px 14px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+.output {
+    margin-top: 12px;
+    min-height: 62px;
+    background: #f8fcf7;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}

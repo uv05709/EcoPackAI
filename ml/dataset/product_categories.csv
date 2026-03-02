@@ -1,7 +1,13 @@
-category_name,fragility_level,average_weight
-Electronics,High,5
-Food,Medium,2
-Cosmetics,Medium,1
-Furniture,Low,15
-Clothing,Low,1
-Medical Supplies,High,3
+category_name,fragility_level,avg_product_weight,max_product_weight,shipping_frequency,safety_priority,moisture_sensitivity
+Electronics,High,2,10,High,High,Low
+Glassware,High,3,12,Medium,High,Low
+Food,Medium,1,5,High,Medium,High
+Cosmetics,Medium,0.5,3,Medium,Medium,Medium
+Pharmaceuticals,High,0.8,4,Low,High,High
+Furniture,Low,10,50,Low,Medium,Low
+Clothing,Low,0.3,2,High,Low,Low
+Toys,Medium,1,6,Medium,Medium,Low
+Home Appliances,Medium,7,25,Low,High,Low
+Medical Equipment,High,5,20,Low,High,Medium
+Stationery,Low,0.2,1,High,Low,Low
+Automotive Parts,Medium,6,18,Low,High,Low

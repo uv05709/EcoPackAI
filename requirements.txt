@@ -1,0 +1,7 @@
+﻿Flask==3.0.3
+joblib==1.4.2
+numpy==1.26.4
+pandas==2.2.2
+psycopg2-binary==2.9.9
+scikit-learn==1.5.1
+SQLAlchemy==2.0.36
