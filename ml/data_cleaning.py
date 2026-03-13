@@ -1,13 +1,18 @@
 import pandas as pd
+import os
+from pathlib import Path
 import psycopg2
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 # Database connection
 conn = psycopg2.connect(
-    dbname="ecopackai",
-    user="postgres",
-    password="123456789",
-    host="localhost",
-    port="5432"
+    dbname=os.getenv("DB_NAME", "ecopackai"),
+    user=os.getenv("DB_USER", "postgres"),
+    password=os.getenv("DB_PASSWORD", ""),
+    host=os.getenv("DB_HOST", "localhost"),
+    port=os.getenv("DB_PORT", "5432"),
 )
 
 # Load materials data

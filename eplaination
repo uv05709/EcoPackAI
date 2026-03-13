@@ -1,0 +1,118 @@
+EcoPackAI - System Working Explanation
+
+1) Overall Architecture
+- Frontend (HTML/CSS/JS) is the user interface.
+- Backend (Flask API in backend/app.py) is the service layer.
+- PostgreSQL is the optional persistence layer for dataset import scripts.
+- ML artifacts (models + scaler) are used by backend for predictions.
+
+High-level flow:
+User -> Frontend -> Flask Backend -> ML Model/Scaler (+ Dataset) -> Response -> Frontend UI
+
+2) Backend Working (Flask)
+Main file: backend/app.py
+
+Backend responsibilities:
+- Load trained artifacts:
+  - ml/models/cost_model.pkl
+  - ml/models/co2_model.pkl
+  - ml/models/scaler.pkl
+- Load dataset:
+  - ml/dataset/engineered_materials.csv
+- Encode material_type to numeric for model input.
+- Validate request payloads.
+- Predict cost and CO2.
+- Compute eco_score and return ranked recommendation.
+
+Important endpoints:
+- GET /health
+  - Checks whether models/dataset are loaded and API is ready.
+- GET /metadata/material-types
+  - Returns supported material types for frontend dropdown.
+- GET /recommend
+  - Uses dataset rows and returns best + top recommendations.
+- POST /recommend
+  - Takes custom input from frontend and returns best ranked material.
+
+3) Frontend Working
+Files:
+- frontend/index.html
+- frontend/style.css
+- frontend/script.js
+
+Frontend responsibilities:
+- Show dashboard and input form.
+- Call backend APIs using fetch().
+- Render backend response as cards and ranking table.
+
+Frontend API interactions:
+- On load: calls /metadata/material-types and fills material type dropdown.
+- Check Backend button: calls /health.
+- Run Dataset Recommendation button: calls GET /recommend.
+- Custom form submit: sends POST /recommend with JSON payload.
+
+4) PostgreSQL Working
+Database is used by data import/feature scripts (optional in current live API path):
+- ml/import_to_postgres.py
+  - Imports materials.csv to PostgreSQL table materials.
+- ml/insert_product_categories.py
+  - Imports product_categories.csv to table product_categories.
+- ml/feature_engineering.py and ml/data_cleaning.py
+  - Can read from PostgreSQL and generate engineered datasets.
+
+Current backend prediction path primarily uses CSV + model artifacts.
+PostgreSQL is mainly for data management and pipeline preparation.
+
+5) How Everything Connects (Step by Step)
+A) Prepare data + model artifacts
+1. python ml/generate_realistic_dataset.py
+2. python ml/data_quality_gate.py
+3. python ml/dataset_preparation.py
+4. python ml/model_training.py
+
+Output created:
+- ml/dataset/*.csv (prepared datasets)
+- ml/models/*.pkl (cost model, co2 model, scaler)
+
+B) Start backend
+5. python backend/app.py
+Backend listens on: http://127.0.0.1:5000
+
+C) Use frontend
+6. Open frontend/index.html in browser.
+7. Keep API Base URL = http://127.0.0.1:5000
+8. Frontend calls backend and displays recommendations.
+
+6) PostgreSQL Connection (if you want DB in pipeline)
+Prerequisites:
+- PostgreSQL server running.
+- Database created (example: ecopackai).
+
+Typical connection string used in scripts:
+- postgresql://postgres:<password>@localhost:5432/ecopackai
+
+Recommended environment variables:
+- DB_HOST=localhost
+- DB_PORT=5432
+- DB_NAME=ecopackai
+- DB_USER=postgres
+- DB_PASSWORD=your_password
+
+Then run:
+- python ml/import_to_postgres.py
+- python ml/insert_product_categories.py
+
+7) Troubleshooting Connection Issues
+- Frontend says Failed to fetch:
+  - Ensure backend/app.py is running on port 5000.
+  - Ensure API Base URL in frontend is correct.
+- Feature mismatch error:
+  - Retrain and restart backend so scaler/model schema matches current code.
+- DB connection error:
+  - Verify PostgreSQL credentials, port, and database name.
+
+8) Summary
+- Frontend = UI and API calls.
+- Backend = validation, prediction, ranking logic.
+- PostgreSQL = data storage/import for pipeline (optional during runtime inference).
+- ML artifacts = core intelligence used by backend for recommendation.

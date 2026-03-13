@@ -4,20 +4,75 @@ function getBaseUrl() {
     return byId("apiBaseUrl").value.trim().replace(/\/$/, "");
 }
 
-function showOutput(id, data) {
-    byId(id).textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+function formatNumber(value, digits = 2) {
+    return Number(value).toFixed(digits);
+}
+
+function renderMaterialCard(containerId, material, title = "Recommended Material") {
+    const target = byId(containerId);
+    if (!material) {
+        target.innerHTML = `<p class="muted">No material available.</p>`;
+        return;
+    }
+
+    target.innerHTML = `
+        <h4>${title}: ${material.material_name}</h4>
+        <p><strong>Type:</strong> ${material.material_type}</p>
+        <div class="metrics">
+            <div class="metric">
+                <span class="metric-label">Eco Score</span>
+                <span class="metric-value">${formatNumber(material.eco_score, 3)}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Predicted Cost</span>
+                <span class="metric-value">${formatNumber(material.predicted_cost, 2)}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Predicted CO2</span>
+                <span class="metric-value">${formatNumber(material.predicted_co2, 2)}</span>
+            </div>
+        </div>
+    `;
+}
+
+function renderTopTable(bodyId, rows) {
+    const body = byId(bodyId);
+    if (!rows || rows.length === 0) {
+        body.innerHTML = `<tr><td colspan="6" class="empty">No ranked materials.</td></tr>`;
+        return;
+    }
+
+    body.innerHTML = rows
+        .map(
+            (row, index) => `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${row.material_name}</td>
+                <td>${row.material_type}</td>
+                <td>${formatNumber(row.eco_score, 3)}</td>
+                <td>${formatNumber(row.predicted_cost, 2)}</td>
+                <td>${formatNumber(row.predicted_co2, 2)}</td>
+            </tr>`
+        )
+        .join("");
 }
 
 async function callApi(path, options = {}) {
     const response = await fetch(`${getBaseUrl()}${path}`, {
         headers: { "Content-Type": "application/json" },
-        ...options
+        ...options,
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
         throw new Error(data.error || data.message || `Request failed (${response.status})`);
     }
     return data;
+}
+
+function setStatus(message, ok = false) {
+    const status = byId("healthStatus");
+    status.textContent = message;
+    status.style.color = ok ? "#1d6a45" : "#8d2b2b";
 }
 
 async function loadMaterialTypes() {
@@ -31,31 +86,35 @@ async function loadMaterialTypes() {
             option.textContent = type;
             select.appendChild(option);
         });
+        setStatus(`Status: connected (${data.count} material types loaded)`, true);
     } catch (error) {
-        showOutput("healthOutput", `Could not load material types: ${error.message}`);
+        setStatus(`Status: failed to load material types (${error.message})`, false);
     }
 }
 
 async function checkHealth() {
     try {
-        const data = await callApi("/health");
-        showOutput("healthOutput", data);
+        const health = await callApi("/health");
+        setStatus(`Status: backend healthy, dataset rows: ${health.dataset_rows}`, true);
     } catch (error) {
-        showOutput("healthOutput", `Health check failed: ${error.message}`);
+        setStatus(`Status: backend unhealthy (${error.message})`, false);
     }
 }
 
 async function datasetRecommendation() {
     try {
         const data = await callApi("/recommend");
-        showOutput("datasetOutput", data);
+        renderMaterialCard("datasetBestCard", data.best_material, "Best Dataset Material");
+        renderTopTable("datasetTopBody", data.top_5 || []);
     } catch (error) {
-        showOutput("datasetOutput", `Recommendation failed: ${error.message}`);
+        byId("datasetBestCard").innerHTML = `<p class="muted">Dataset recommendation failed: ${error.message}</p>`;
+        renderTopTable("datasetTopBody", []);
     }
 }
 
 async function customRecommendation(event) {
     event.preventDefault();
+
     const payload = {
         materials: [
             {
@@ -65,21 +124,18 @@ async function customRecommendation(event) {
                 weight_capacity: Number(byId("weightCapacity").value),
                 biodegradability_score: Number(byId("biodegradabilityScore").value),
                 recyclability_percentage: Number(byId("recyclabilityPercentage").value),
-                cost_efficiency_index: Number(byId("costEfficiencyIndex").value),
-                co2_impact_index: Number(byId("co2ImpactIndex").value),
-                material_suitability_score: Number(byId("materialSuitabilityScore").value)
-            }
-        ]
+            },
+        ],
     };
 
     try {
         const data = await callApi("/recommend", {
             method: "POST",
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
         });
-        showOutput("customOutput", data);
+        renderMaterialCard("customBestCard", data.best_material, "Best Custom Material");
     } catch (error) {
-        showOutput("customOutput", `Custom recommendation failed: ${error.message}`);
+        byId("customBestCard").innerHTML = `<p class="muted">Custom recommendation failed: ${error.message}</p>`;
     }
 }
 

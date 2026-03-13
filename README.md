@@ -1,215 +1,142 @@
-﻿# EcoPackAI
+# EcoPackAI
 
 ## 1. Project Title
-**EcoPackAI**
+**EcoPackAI - AI Framework for Sustainable Packaging Recommendation**
 
 ## 2. Short Project Description
-EcoPackAI is an AI-assisted packaging recommendation project that predicts packaging **cost** and **CO2 impact** and suggests the most sustainable material.
+EcoPackAI predicts packaging **cost** and **CO2 impact** for packaging materials and ranks them using an **eco score** to recommend sustainable options.
 
-## 3. Project Goal / Purpose
-The goal is to help choose better packaging materials by combining:
-- Machine learning predictions (`predicted_cost`, `predicted_co2`)
-- Sustainability indicators (`biodegradability`, `recyclability`, engineered scores)
-- A ranking mechanism (`eco_score`) to recommend the best option
+## 3. Milestone Status (Current)
+**Milestone 3 completed** with:
+- working ML pipeline
+- working backend API
+- integrated frontend dashboard
+- realistic dataset generation (600+ rows)
+- data quality gate
+- updated model training to reduce leakage/overfitting risk
 
 ## 4. Tech Stack
-| Layer | Technology | Version |
-|---|---|---|
-| Language | Python | Not pinned in repo |
-| API | Flask | Not pinned in repo |
-| ML/Data | scikit-learn, pandas, numpy, joblib | Not pinned in repo |
-| Database | PostgreSQL | Not pinned in repo |
-| DB Access | SQLAlchemy, psycopg2 | Not pinned in repo |
-| Frontend (folder present) | HTML, CSS, JavaScript | Not pinned in repo |
+| Layer | Technology |
+|---|---|
+| Language | Python |
+| API | Flask |
+| ML/Data | scikit-learn, pandas, numpy, joblib |
+| DB (optional scripts) | PostgreSQL |
+| DB Access | SQLAlchemy, psycopg2-binary |
+| Frontend | HTML, CSS, JavaScript |
 
-## 5. Installation Steps (Step-by-Step)
-1. Clone the repository:
+## 5. Installation
+1. Clone:
 ```bash
 git clone <your-repo-url>
 cd EcoPackAI
 ```
-
-2. Create and activate a virtual environment:
+2. Create venv:
 ```bash
 python -m venv .venv
-# Windows PowerShell
+# PowerShell
 .\.venv\Scripts\Activate.ps1
-# Linux/macOS
-source .venv/bin/activate
 ```
-
 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-
-4. If `requirements.txt` is incomplete, install detected packages manually:
+4. Configure environment:
 ```bash
-pip install flask pandas numpy scikit-learn joblib sqlalchemy psycopg2-binary
+copy .env.example .env
+# then update DB_PASSWORD (and other values if needed)
 ```
 
-5. Ensure PostgreSQL is running and database exists (`ecopackai`) if using DB scripts.
-
-## 6. Dependencies I Installed
-Detected from source imports:
-- `flask`
-- `pandas`
-- `numpy`
-- `scikit-learn`
-- `joblib`
-- `sqlalchemy`
-- `psycopg2` (recommended package: `psycopg2-binary`)
-
-## 7. Folder Structure
+## 6. Project Structure (Important Files)
 ```text
-EcoPackAI/
-|-- backend/
-|   |-- app.py
-|   |-- database/
-|   |-- models/
-|   |   |-- co2_model.pkl
-|   |   `-- cost_model.pkl
-|   |-- routes/
-|   `-- utils/
-|-- dashboard/
-|   `-- analytics.py
-|-- frontend/
-|   |-- index.html
-|   |-- script.js
-|   `-- style.css
-|-- ml/
-|   |-- artifacts/
-|   |   |-- X_test.pkl
-|   |   |-- X_train.pkl
-|   |   |-- y_co2_test.pkl
-|   |   |-- y_co2_train.pkl
-|   |   |-- y_cost_test.pkl
-|   |   `-- y_cost_train.pkl
-|   |-- dataset/
-|   |   |-- cleaned_materials.csv
-|   |   |-- engineered_materials.csv
-|   |   |-- materials.csv
-|   |   |-- product_categories.csv
-|   |   `-- real_materials_base.csv
-|   |-- models/
-|   |   |-- co2_model.pkl
-|   |   |-- cost_model.pkl
-|   |   `-- scaler.pkl
-|   |-- data_cleaning.py
-|   |-- dataset_preparation.py
-|   |-- feature_engineering.py
-|   |-- generate_realistic_dataset.py
-|   |-- import_to_postgres.py
-|   |-- insert_product_categories.py
-|   |-- materialranking.py
-|   |-- model_training.py
-|   |-- predict_api.py
-|   |-- recommendation_engine.py
-|   `-- train_models.py
-|-- report/
-|-- README.md
-`-- requirements.txt
+backend/
+  app.py                        # Main API used by frontend
+frontend/
+  index.html                    # Dashboard UI
+  script.js                     # API integration + rendering
+  style.css                     # UI styling
+ml/
+  generate_realistic_dataset.py # 600+ realistic row generation
+  data_quality_gate.py          # Quality validation checks
+  dataset_preparation.py        # Feature prep + scaler + splits
+  model_training.py             # Cost/CO2 model training
+  recommendation_engine.py      # CLI recommendation script
+  predict_api.py                # Legacy/simple ML API
+  dataset/
+    real_materials_base.csv
+    real_production_materials.csv
+    materials.csv
+    cleaned_materials.csv
+    engineered_materials.csv
+  models/
+    cost_model.pkl
+    co2_model.pkl
+    scaler.pkl
+dashboard/
+  analytics.py                  # Metrics + top material analysis
+report/
+  EcoPackAI_Milestone3_Presentation.pptx
 ```
 
-## 8. Environment Variables
-Currently, database credentials are hardcoded in some scripts.
-
-Recommended environment variables:
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=ecopackai
-DB_USER=postgres
-DB_PASSWORD=your_password
-FLASK_ENV=development
-FLASK_APP=ml/predict_api.py
-```
-
-## 9. How to Run the Project
-### Development
-1. Prepare data/model pipeline (as needed):
+## 7. End-to-End Run Order (Current)
+Run in this order:
 ```bash
 python ml/generate_realistic_dataset.py
-python ml/import_to_postgres.py
-python ml/insert_product_categories.py
-python ml/feature_engineering.py
+python ml/data_quality_gate.py
 python ml/dataset_preparation.py
 python ml/model_training.py
+python backend/app.py
 ```
 
-2. Run recommendation script:
-```bash
-python ml/recommendation_engine.py
+Open frontend:
+- `frontend/index.html` in browser
+- API base URL: `http://127.0.0.1:5000`
+
+## 8. API Endpoints (backend/app.py)
+- `GET /health` -> service status, dataset row count, active feature schema
+- `GET /metadata/material-types` -> material type list for frontend dropdown
+- `GET /recommend` -> best + top-5 recommendation from dataset
+- `POST /recommend` -> recommendation from custom material input
+
+Sample payload:
+```json
+{
+  "materials": [
+    {
+      "material_name": "Custom Candidate",
+      "material_type": "Bioplastic",
+      "strength_rating": 7.5,
+      "weight_capacity": 40,
+      "biodegradability_score": 8,
+      "recyclability_percentage": 82
+    }
+  ]
+}
 ```
 
-3. Run Flask API:
-```bash
-python ml/predict_api.py
-```
-API endpoint:
-- `GET /recommend`
+## 9. What Is Done
+- Realistic synthetic dataset generation from original base dataset
+- Minimum 600+ rows achieved (currently 700+)
+- Data quality checks (range, nulls, distribution, correlations)
+- Train/test split, scaling, model artifact saving
+- Leakage-prone feature usage reduced in core training/inference flow
+- Backend API integrated with frontend
+- Frontend renders recommendation cards/tables (not raw JSON dump)
+- Milestone 3 PPT created in `report/`
 
-### Production (basic)
-Use a production WSGI server instead of Flask debug mode:
-```bash
-pip install waitress
-waitress-serve --listen=0.0.0.0:8000 ml.predict_api:app
-```
+## 10. Current Limitations
+- No automated unit/integration test suite yet
+- No Docker/CI pipeline yet
+- Some legacy scripts are still present and not part of new primary flow
+- DB scripts contain hardcoded credentials and need env-based cleanup
+- `backend/models/` has placeholder 0-byte model files; active models are in `ml/models/`
 
-## 10. Features Implemented So Far
-- Dataset generation for packaging materials
-- PostgreSQL data import scripts
-- Data cleaning and feature engineering
-- Train/test split and feature scaling
-- RandomForest-based cost prediction model
-- RandomForest-based CO2 prediction model
-- Material ranking with calculated eco score
-- Flask API for best-material recommendation
+## 11. Recommended Next Steps
+- Add `run_pipeline.py` to chain generate -> quality gate -> prepare -> train
+- Add tests for API schema and ML pipeline contracts
+- Move all secrets/config to `.env`
+- Add Docker + CI workflow
+- Add model versioning and retraining logs
 
-## 11. Current Project Status
-**In active development (ML pipeline working, system integration pending).**
-
-## 12. Known Issues / Limitations
-- `requirements.txt` is currently empty/incomplete
-- DB credentials are hardcoded (security risk)
-- API currently serves recommendation from internal dataset flow only
-- No automated tests yet
-- Limited error handling for DB/API pipeline failures
-- Some non-ML folders are placeholder/incomplete
-
-## 13. What Is Working
-- Core ML scripts run as a pipeline when prerequisites are available
-- Model artifacts and train/test artifacts are organized under `ml/models` and `ml/artifacts`
-- Recommendation logic computes and returns best material
-- Flask endpoint `/recommend` returns JSON response
-
-## 14. What Needs To Be Done Next (Roadmap / TODO)
-- Populate and lock `requirements.txt`
-- Move secrets to environment variables
-- Add API input parameters (currently static recommendation flow)
-- Integrate backend and frontend with the ML API
-- Add unit/integration tests
-- Add logging and robust exception handling
-- Add model/version management and retraining workflow
-
-## 15. Future Improvements
-- Add model explainability (feature importance/SHAP)
-- Add user-specific recommendation filters (budget, durability, product type)
-- Add CI/CD pipeline
-- Containerize with Docker
-- Add monitoring for model/API performance
-
-## 16. Contribution Guidelines (Basic)
-1. Fork the repository
-2. Create a feature branch:
-```bash
-git checkout -b feature/your-feature-name
-```
-3. Commit changes with clear messages
-4. Push your branch and open a Pull Request
-5. Keep code style consistent and add tests for new logic
-
-## 17. License
-No license file is currently present.
-
-Recommended: add a `LICENSE` file (e.g., MIT) and update this section accordingly.
+## 12. License
+No license file currently included. Add a `LICENSE` file (MIT/Apache-2.0 recommended).

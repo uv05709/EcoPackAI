@@ -19,9 +19,6 @@ FEATURE_COLUMNS = [
     "biodegradability_score",
     "recyclability_percentage",
     "material_type_encoded",
-    "cost_efficiency_index",
-    "co2_impact_index",
-    "material_suitability_score",
 ]
 
 REQUIRED_INPUT_FIELDS = [
@@ -30,6 +27,9 @@ REQUIRED_INPUT_FIELDS = [
     "biodegradability_score",
     "recyclability_percentage",
     "material_type",
+]
+
+LEGACY_ENGINEERED_FEATURES = [
     "cost_efficiency_index",
     "co2_impact_index",
     "material_suitability_score",
@@ -50,6 +50,42 @@ def _find_existing_path(candidates: list[Path], label: str) -> Path:
             return candidate
     checked = "\n".join(str(path) for path in candidates)
     raise FileNotFoundError(f"Could not find a valid {label}. Checked:\n{checked}")
+
+
+def _add_engineered_features(frame: pd.DataFrame) -> pd.DataFrame:
+    result = frame.copy()
+
+    if "material_suitability_score" not in result.columns:
+        result["material_suitability_score"] = (
+            0.4 * result["strength_rating"]
+            + 0.3 * result["biodegradability_score"]
+            + 0.2 * result["recyclability_percentage"]
+            - 0.1 * result.get("co2_emission_score", 0.0)
+        )
+
+    if "cost_efficiency_index" not in result.columns:
+        # Fallback estimate when true cost is unavailable in payloads.
+        proxy_cost = (
+            1.0
+            + 0.08 * result["weight_capacity"]
+            + 0.20 * (11.0 - result["biodegradability_score"])
+        )
+        result["cost_efficiency_index"] = result["strength_rating"] / proxy_cost.replace(0, 1.0)
+
+    if "co2_impact_index" not in result.columns:
+        # Fallback estimate when true CO2 is unavailable in payloads.
+        proxy_co2 = (
+            0.60 * result["strength_rating"]
+            + 0.08 * result["weight_capacity"]
+            - 0.05 * result["recyclability_percentage"]
+            - 0.25 * result["biodegradability_score"]
+            + 6.0
+        )
+        result["co2_impact_index"] = (
+            proxy_co2.clip(lower=0.1) * 10 / result["recyclability_percentage"].clip(lower=1.0)
+        )
+
+    return result
 
 
 def _load_resources() -> dict[str, Any]:
@@ -76,6 +112,10 @@ def _load_resources() -> dict[str, Any]:
         "engineered dataset",
     )
 
+    cost_model = joblib.load(cost_model_path)
+    co2_model = joblib.load(co2_model_path)
+    scaler = joblib.load(scaler_path)
+
     dataset = pd.read_csv(dataset_path)
     if dataset.empty:
         raise ValueError(f"Dataset is empty: {dataset_path}")
@@ -86,16 +126,21 @@ def _load_resources() -> dict[str, Any]:
     encoder = LabelEncoder()
     dataset["material_type_encoded"] = encoder.fit_transform(dataset["material_type"].astype(str))
 
-    for column in FEATURE_COLUMNS:
+    dataset = _add_engineered_features(dataset)
+
+    feature_columns = list(getattr(scaler, "feature_names_in_", FEATURE_COLUMNS))
+
+    for column in feature_columns:
         if column not in dataset.columns:
             raise ValueError(f"Dataset is missing feature column: {column}")
 
     return {
-        "cost_model": joblib.load(cost_model_path),
-        "co2_model": joblib.load(co2_model_path),
-        "scaler": joblib.load(scaler_path),
+        "cost_model": cost_model,
+        "co2_model": co2_model,
+        "scaler": scaler,
         "dataset": dataset,
         "encoder": encoder,
+        "feature_columns": feature_columns,
         "paths": {
             "cost_model": str(cost_model_path),
             "co2_model": str(co2_model_path),
@@ -134,12 +179,13 @@ def _validate_and_prepare_materials(materials: list[dict[str, Any]], encoder: La
         )
 
     frame["material_type_encoded"] = encoder.transform(incoming_types)
+    frame = _add_engineered_features(frame)
     return frame
 
 
 def _score_materials(frame: pd.DataFrame, resources: dict[str, Any]) -> pd.DataFrame:
     model_frame = frame.copy()
-    X = model_frame[FEATURE_COLUMNS]
+    X = model_frame[resources["feature_columns"]]
     X_scaled = resources["scaler"].transform(X)
 
     model_frame["predicted_cost"] = resources["cost_model"].predict(X_scaled)
@@ -183,6 +229,7 @@ def health() -> Any:
             "status": "ok",
             "dataset_rows": int(len(dataset)),
             "dataset_columns": list(dataset.columns),
+            "feature_columns": RESOURCES["feature_columns"],
             "resources": RESOURCES["paths"],
         }
     )

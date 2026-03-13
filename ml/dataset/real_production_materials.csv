@@ -1,0 +1,721 @@
+material_name,material_type,strength_rating,weight_capacity,biodegradability_score,recyclability_percentage,co2_emission_score,cost_per_unit
+Recycled Paperboard,Paper,7.0,17.85,9.0,91.57,4.56,10.57
+Palm Leaf Packaging,Natural Fiber,6.0,14.36,10.0,85.64,2.76,14.89
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.9,8.0,80.04,2.47,16.49
+Recycled Paperboard,Paper,5.0,17.13,9.0,91.24,2.47,7.85
+Tin Container,Metal,8.0,37.27,2.0,71.62,6.53,30.11
+Compostable PBAT,Bioplastic,8.0,27.44,8.0,74.79,4.95,19.2
+Starch-Based Plastic,Bioplastic,7.0,21.13,8.0,66.83,5.12,15.49
+Seaweed Packaging,Biopolymer,6.0,19.56,10.0,87.45,1.0,17.02
+Wooden Crate,Wood,9.0,45.49,6.0,60.01,5.13,28.99
+Glass Bottle,Glass,9.0,40.17,2.0,28.35,9.32,24.34
+Corrugated Cardboard,Paper,6.0,19.4,8.0,87.9,3.12,10.29
+Recycled PET,Plastic,9.0,35.02,3.0,87.54,7.0,18.15
+Aluminum Can,Metal,8.0,35.48,3.0,78.49,7.92,21.56
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.01,10.0,80.61,2.69,17.79
+Cornstarch Packaging,Biopolymer,7.0,19.76,9.0,86.07,1.98,16.44
+Recycled PET,Plastic,10.0,36.51,4.0,86.0,6.74,24.1
+Biodegradable PLA,Bioplastic,10.0,26.9,7.0,65.22,4.86,20.45
+LDPE Recycled,Plastic,6.0,27.82,2.0,85.74,8.85,27.41
+Hemp Fiber Board,Natural Fiber,8.0,27.72,9.0,78.56,3.93,15.32
+Molded Pulp,Pulp,7.0,23.44,9.0,92.11,2.23,15.3
+Glass Bottle,Glass,9.0,37.37,1.0,26.49,12.47,25.89
+Hemp Fiber Board,Natural Fiber,8.0,31.24,9.0,75.63,2.82,16.02
+Plywood Box,Wood,9.0,48.0,5.0,57.6,6.12,31.48
+Recycled Paperboard,Paper,6.0,17.2,9.0,92.27,2.7,8.05
+Molded Pulp,Pulp,7.0,26.53,8.0,95.33,2.54,10.88
+Starch-Based Plastic,Bioplastic,7.0,21.4,8.0,70.37,4.34,13.56
+Hemp Fiber Board,Natural Fiber,8.0,29.43,9.0,77.94,1.98,19.11
+Bagasse Fiber,Natural Fiber,7.0,18.81,10.0,86.4,3.3,15.29
+Starch-Based Plastic,Bioplastic,7.0,23.92,8.0,71.63,4.62,19.26
+Molded Pulp,Pulp,8.0,27.07,8.0,93.16,2.49,14.6
+Recycled PET,Plastic,8.0,35.75,4.0,78.75,5.41,20.8
+Recycled PET,Plastic,9.0,34.76,3.0,86.29,6.53,21.73
+Reusable Plastic Crate,Plastic,9.0,54.09,2.0,41.23,8.07,22.92
+Tempered Glass Packaging,Glass,10.0,48.46,1.0,29.27,10.9,30.37
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.26,9.0,80.58,1.94,11.99
+Corrugated Cardboard,Paper,6.0,17.59,8.0,84.15,4.6,11.91
+Recycled PET,Plastic,8.0,28.28,3.0,83.22,6.79,21.62
+Cornstarch Packaging,Biopolymer,8.0,21.28,9.0,82.39,4.99,19.66
+Bagasse Fiber,Natural Fiber,7.0,18.46,10.0,84.12,2.38,16.64
+LDPE Recycled,Plastic,8.0,35.03,3.0,88.51,6.42,19.94
+Glass Bottle,Glass,9.0,39.68,1.0,35.69,10.76,25.4
+Kraft Paper,Paper,6.0,14.73,9.0,89.25,5.11,13.47
+Reusable Plastic Crate,Plastic,10.0,53.14,2.0,45.21,8.71,25.71
+HDPE Recycled,Plastic,8.0,39.85,2.0,91.12,8.12,26.33
+Compostable PBAT,Bioplastic,8.0,22.02,8.0,73.1,5.74,20.67
+Recycled PET,Plastic,9.0,38.06,3.0,87.03,7.81,24.25
+Molded Pulp,Pulp,7.0,22.2,9.0,93.25,3.21,16.44
+Molded Pulp,Pulp,9.0,26.78,9.0,97.96,1.88,14.19
+Kraft Paper,Paper,6.0,14.83,9.0,84.78,5.24,12.96
+Tempered Glass Packaging,Glass,10.0,45.8,1.0,26.39,10.76,28.72
+LDPE Recycled,Plastic,7.0,32.6,2.0,84.6,6.56,24.79
+HDPE Recycled,Plastic,8.0,36.38,2.0,90.41,8.5,19.0
+Bagasse Fiber,Natural Fiber,6.0,19.67,10.0,84.06,2.96,16.73
+Plywood Box,Wood,9.0,52.99,5.0,50.76,5.6,30.24
+Wooden Crate,Wood,8.0,49.64,6.0,63.92,2.66,26.23
+Steel Packaging,Metal,10.0,49.91,1.0,72.1,8.94,34.08
+Glass Bottle,Glass,9.0,40.03,1.0,29.69,11.06,23.21
+Recycled PET,Plastic,9.0,37.66,3.0,86.76,5.02,18.02
+Wooden Crate,Wood,7.0,47.52,6.0,58.62,2.04,22.96
+Corrugated Cardboard,Paper,7.0,20.99,7.0,90.41,4.32,14.52
+Tin Container,Metal,9.0,40.73,2.0,71.24,8.83,31.49
+Bagasse Fiber,Natural Fiber,6.0,17.23,10.0,80.37,2.18,14.39
+Biodegradable PLA,Bioplastic,10.0,25.25,6.0,58.24,5.33,21.61
+Biodegradable PLA,Bioplastic,9.0,26.04,7.0,66.14,5.78,21.86
+Steel Packaging,Metal,10.0,54.4,1.0,72.33,10.67,30.98
+Corrugated Cardboard,Paper,7.0,20.57,8.0,86.97,2.29,9.66
+Corrugated Cardboard,Paper,8.0,21.38,9.0,81.66,3.41,8.28
+Aluminum Can,Metal,9.0,34.36,2.0,74.67,8.02,23.37
+Hemp Fiber Board,Natural Fiber,8.0,30.96,8.0,77.89,2.91,18.98
+LDPE Recycled,Plastic,7.0,35.47,3.0,92.82,6.95,21.88
+Reusable Plastic Crate,Plastic,10.0,50.27,2.0,41.51,8.56,25.66
+Tempered Glass Packaging,Glass,10.0,49.44,1.0,20.0,12.0,28.69
+Biodegradable PLA,Bioplastic,9.0,28.55,7.0,65.04,5.64,23.06
+Molded Pulp,Pulp,8.0,25.82,9.0,92.32,4.38,16.22
+Kraft Paper,Paper,6.0,16.05,9.0,87.53,2.75,9.6
+Seaweed Packaging,Biopolymer,6.0,18.25,10.0,90.12,1.07,16.99
+Aluminum Can,Metal,8.0,39.44,3.0,72.81,7.13,19.59
+Cornstarch Packaging,Biopolymer,8.0,21.35,9.0,84.06,2.11,15.58
+Starch-Based Plastic,Bioplastic,6.0,24.21,8.0,71.6,5.0,11.48
+Biodegradable PLA,Bioplastic,9.0,30.31,7.0,62.13,5.28,21.67
+Kraft Paper,Paper,6.0,13.71,9.0,88.21,3.46,11.82
+Hemp Fiber Board,Natural Fiber,9.0,31.49,9.0,77.8,3.71,17.21
+Kraft Paper,Paper,6.0,15.62,9.0,88.05,2.92,11.82
+Compostable PBAT,Bioplastic,7.0,26.54,9.0,72.52,6.45,18.6
+Plywood Box,Wood,10.0,48.95,5.0,51.76,4.78,28.02
+Biodegradable PLA,Bioplastic,9.0,24.38,7.0,65.39,5.18,21.43
+Aluminum Can,Metal,8.0,34.54,3.0,76.03,4.79,29.14
+Tempered Glass Packaging,Glass,10.0,51.64,2.0,26.95,11.39,33.7
+Wooden Crate,Wood,6.0,41.9,6.0,63.65,3.28,28.6
+Reusable Plastic Crate,Plastic,10.0,44.3,3.0,38.1,8.85,28.54
+Corrugated Cardboard,Paper,8.0,18.82,8.0,78.87,2.82,7.74
+Cornstarch Packaging,Biopolymer,7.0,18.38,8.0,80.26,2.41,19.14
+HDPE Recycled,Plastic,8.0,34.8,2.0,89.42,7.11,23.68
+Tin Container,Metal,9.0,42.27,2.0,73.36,7.84,28.56
+Aluminum Can,Metal,8.0,35.14,3.0,71.42,7.89,26.25
+Compostable PBAT,Bioplastic,8.0,27.03,8.0,63.82,4.01,21.4
+Recycled Paperboard,Paper,6.0,18.45,9.0,91.21,4.62,13.35
+Palm Leaf Packaging,Natural Fiber,6.0,15.54,10.0,86.38,4.11,13.94
+Molded Pulp,Pulp,8.0,22.37,8.0,91.84,2.75,15.37
+Molded Pulp,Pulp,8.0,26.78,9.0,98.3,2.93,15.55
+Palm Leaf Packaging,Natural Fiber,5.0,13.5,10.0,83.56,2.31,14.35
+Molded Pulp,Pulp,8.0,22.67,9.0,94.35,1.96,10.14
+Palm Leaf Packaging,Natural Fiber,6.0,15.43,10.0,90.16,1.95,16.28
+Hemp Fiber Board,Natural Fiber,8.0,30.29,9.0,76.57,2.0,19.32
+Recycled Paperboard,Paper,5.0,16.62,8.0,88.81,2.42,14.7
+Bagasse Fiber,Natural Fiber,6.0,17.52,10.0,79.67,2.55,12.48
+Molded Pulp,Pulp,8.0,26.08,9.0,91.29,2.88,13.15
+Kraft Paper,Paper,6.0,15.86,10.0,88.85,2.74,7.92
+HDPE Recycled,Plastic,7.0,40.52,2.0,88.03,6.62,24.63
+Palm Leaf Packaging,Natural Fiber,5.0,14.63,10.0,83.79,2.47,14.03
+Kraft Paper,Paper,5.0,12.91,10.0,92.14,4.18,10.28
+Bagasse Fiber,Natural Fiber,6.0,14.43,10.0,82.1,2.52,16.49
+Recycled PET,Plastic,10.0,37.32,3.0,89.07,5.47,22.41
+Reusable Plastic Crate,Plastic,8.0,34.43,2.0,35.0,9.38,27.46
+Biodegradable PLA,Bioplastic,8.0,29.74,7.0,60.45,4.04,19.35
+Reusable Plastic Crate,Plastic,10.0,44.38,2.0,44.49,9.09,27.98
+Glass Bottle,Glass,9.0,40.07,1.0,23.59,10.87,26.76
+Recycled PET,Plastic,9.0,34.24,2.0,83.28,8.14,18.46
+Tempered Glass Packaging,Glass,10.0,47.27,1.0,24.31,11.18,27.38
+HDPE Recycled,Plastic,8.0,43.28,2.0,92.4,8.88,25.91
+Bagasse Fiber,Natural Fiber,6.0,16.52,10.0,81.42,3.25,14.36
+LDPE Recycled,Plastic,7.0,30.86,2.0,89.31,7.81,19.86
+Kraft Paper,Paper,5.0,12.45,8.0,88.53,2.93,12.19
+Recycled PET,Plastic,8.0,32.88,3.0,91.2,6.82,18.12
+Hemp Fiber Board,Natural Fiber,8.0,31.55,9.0,74.28,2.12,18.08
+Recycled Paperboard,Paper,6.0,15.08,8.0,92.41,4.62,7.85
+Molded Pulp,Pulp,8.0,24.62,8.0,93.7,2.27,16.75
+Biodegradable PLA,Bioplastic,8.0,27.0,7.0,67.95,4.05,18.75
+Palm Leaf Packaging,Natural Fiber,6.0,15.09,10.0,83.47,4.07,15.54
+Tempered Glass Packaging,Glass,9.0,46.33,1.0,30.89,10.94,27.14
+Molded Pulp,Pulp,8.0,26.75,9.0,96.66,4.15,15.17
+Biodegradable PLA,Bioplastic,9.0,26.95,8.0,66.58,5.94,17.33
+Biodegradable PLA,Bioplastic,9.0,28.55,7.0,69.38,6.08,24.31
+Palm Leaf Packaging,Natural Fiber,5.0,15.39,10.0,88.61,3.11,13.97
+Tin Container,Metal,9.0,38.95,2.0,69.03,8.27,26.36
+Glass Bottle,Glass,10.0,39.31,1.0,33.76,9.1,24.21
+Recycled PET,Plastic,9.0,32.87,3.0,79.77,7.65,22.94
+LDPE Recycled,Plastic,7.0,29.14,2.0,84.37,6.48,24.27
+Cornstarch Packaging,Biopolymer,8.0,18.52,9.0,81.4,4.24,16.14
+Molded Pulp,Pulp,9.0,24.75,9.0,93.31,3.2,13.11
+Wooden Crate,Wood,8.0,40.69,6.0,59.39,3.38,26.96
+Cornstarch Packaging,Biopolymer,7.0,20.27,9.0,84.01,3.01,18.66
+Biodegradable PLA,Bioplastic,9.0,26.68,7.0,69.73,4.98,22.7
+LDPE Recycled,Plastic,8.0,35.16,3.0,84.78,8.38,20.47
+Tin Container,Metal,10.0,38.39,2.0,74.54,6.88,26.58
+LDPE Recycled,Plastic,7.0,34.08,1.0,85.26,7.06,20.7
+Recycled PET,Plastic,9.0,34.78,3.0,85.01,8.84,18.78
+Reusable Plastic Crate,Plastic,10.0,49.95,2.0,38.82,9.96,28.85
+Glass Bottle,Glass,8.0,43.7,1.0,24.71,10.36,22.96
+Tin Container,Metal,8.0,41.38,2.0,73.81,8.59,28.08
+Plywood Box,Wood,9.0,46.85,5.0,53.94,7.04,32.26
+Compostable PBAT,Bioplastic,8.0,25.1,7.0,70.48,5.72,18.53
+Wooden Crate,Wood,9.0,46.01,5.0,59.83,5.39,25.91
+Aluminum Can,Metal,8.0,31.63,3.0,74.24,7.61,24.14
+Recycled PET,Plastic,9.0,34.26,3.0,83.95,6.58,17.95
+Tempered Glass Packaging,Glass,10.0,41.32,1.0,23.83,12.32,28.05
+Reusable Plastic Crate,Plastic,10.0,49.63,3.0,41.28,10.09,30.49
+Seaweed Packaging,Biopolymer,6.0,16.81,10.0,84.2,3.25,20.62
+Molded Pulp,Pulp,7.0,24.16,9.0,94.56,2.42,16.15
+Recycled Paperboard,Paper,7.0,17.56,8.0,85.4,3.24,9.82
+Palm Leaf Packaging,Natural Fiber,6.0,16.08,10.0,80.71,2.09,11.85
+Corrugated Cardboard,Paper,8.0,20.3,7.0,78.8,3.17,10.9
+Wooden Crate,Wood,7.0,47.28,6.0,60.6,3.72,26.92
+Biodegradable PLA,Bioplastic,9.0,32.18,7.0,64.8,4.75,17.79
+HDPE Recycled,Plastic,9.0,40.52,1.0,85.36,9.82,23.51
+Wooden Crate,Wood,8.0,41.32,7.0,63.22,4.73,22.76
+Plywood Box,Wood,9.0,51.38,5.0,52.24,6.39,29.05
+Kraft Paper,Paper,6.0,13.59,9.0,87.07,2.78,9.31
+Reusable Plastic Crate,Plastic,10.0,49.14,2.0,41.56,7.86,22.89
+Kraft Paper,Paper,5.0,14.44,9.0,86.74,3.91,9.39
+Bagasse Fiber,Natural Fiber,6.0,19.73,10.0,90.38,4.2,15.46
+Palm Leaf Packaging,Natural Fiber,6.0,14.91,10.0,81.63,2.37,16.87
+Kraft Paper,Paper,7.0,15.71,9.0,85.06,5.06,8.65
+HDPE Recycled,Plastic,7.0,44.33,2.0,88.0,7.76,22.2
+Corrugated Cardboard,Paper,8.0,20.93,8.0,84.55,4.29,8.16
+Mushroom Packaging,Biopolymer,5.0,14.51,10.0,90.03,3.08,18.93
+Cornstarch Packaging,Biopolymer,8.0,20.96,9.0,86.32,4.42,16.4
+Glass Bottle,Glass,10.0,42.63,2.0,36.38,11.5,27.58
+LDPE Recycled,Plastic,7.0,32.88,3.0,86.5,7.09,21.69
+Starch-Based Plastic,Bioplastic,7.0,24.09,8.0,73.78,2.98,19.32
+Recycled Paperboard,Paper,7.0,20.05,9.0,93.41,3.49,9.83
+Starch-Based Plastic,Bioplastic,7.0,23.25,8.0,70.44,7.39,17.03
+Reusable Plastic Crate,Plastic,9.0,49.58,2.0,43.11,9.13,28.24
+Molded Pulp,Pulp,8.0,26.3,8.0,92.08,1.05,11.44
+Bagasse Fiber,Natural Fiber,6.0,18.72,10.0,86.36,2.36,18.74
+Bagasse Fiber,Natural Fiber,6.0,20.33,10.0,80.2,2.98,16.51
+Kraft Paper,Paper,7.0,15.67,9.0,87.78,3.3,8.66
+Glass Bottle,Glass,8.0,42.2,1.0,23.89,9.52,20.89
+Recycled PET,Plastic,9.0,33.09,3.0,86.67,6.63,20.06
+Molded Pulp,Pulp,8.0,24.8,9.0,95.61,1.86,18.18
+Molded Pulp,Pulp,8.0,24.48,9.0,97.15,3.05,11.43
+HDPE Recycled,Plastic,8.0,38.32,2.0,95.0,8.18,27.28
+Corrugated Cardboard,Paper,7.0,18.86,9.0,86.75,3.24,15.84
+Starch-Based Plastic,Bioplastic,7.0,21.66,8.0,76.6,5.06,15.68
+Tempered Glass Packaging,Glass,10.0,40.44,1.0,33.51,10.61,30.18
+Molded Pulp,Pulp,9.0,28.26,9.0,92.8,3.39,13.44
+Plywood Box,Wood,9.0,50.44,5.0,53.13,4.52,30.55
+Recycled Paperboard,Paper,7.0,19.27,9.0,94.44,3.87,11.56
+Mushroom Packaging,Biopolymer,7.0,20.33,9.0,91.0,2.41,24.23
+Starch-Based Plastic,Bioplastic,7.0,25.78,9.0,74.99,4.95,20.9
+Reusable Plastic Crate,Plastic,9.0,52.45,2.0,38.33,8.45,27.93
+Wooden Crate,Wood,8.0,43.38,6.0,59.7,4.8,29.3
+Tin Container,Metal,8.0,37.28,2.0,70.57,9.24,26.36
+Plywood Box,Wood,9.0,55.91,5.0,59.29,5.35,31.96
+Starch-Based Plastic,Bioplastic,7.0,26.65,9.0,74.38,6.02,21.34
+Molded Pulp,Pulp,7.0,22.75,8.0,95.54,2.76,10.69
+Tempered Glass Packaging,Glass,10.0,45.7,1.0,31.08,10.33,29.89
+LDPE Recycled,Plastic,7.0,33.3,2.0,94.99,7.09,23.78
+Bagasse Fiber,Natural Fiber,6.0,20.26,9.0,89.15,3.42,15.64
+LDPE Recycled,Plastic,7.0,34.27,2.0,87.21,6.66,19.23
+LDPE Recycled,Plastic,8.0,32.77,2.0,87.66,7.35,23.51
+Hemp Fiber Board,Natural Fiber,8.0,30.96,9.0,75.88,2.63,18.33
+Reusable Plastic Crate,Plastic,9.0,51.89,2.0,42.77,9.59,30.58
+Plywood Box,Wood,10.0,50.56,4.0,54.17,4.38,32.76
+Biodegradable PLA,Bioplastic,9.0,29.5,8.0,63.58,5.48,21.29
+Hemp Fiber Board,Natural Fiber,8.0,31.45,8.0,82.8,4.06,16.11
+Recycled Paperboard,Paper,6.0,19.7,9.0,88.08,3.8,8.14
+Tempered Glass Packaging,Glass,10.0,41.39,1.0,29.37,12.02,29.07
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.08,9.0,78.22,2.96,16.23
+Biodegradable PLA,Bioplastic,9.0,27.63,6.0,63.68,7.68,17.6
+Compostable PBAT,Bioplastic,8.0,23.21,9.0,73.56,4.26,18.79
+Kraft Paper,Paper,7.0,16.61,9.0,91.44,3.63,11.53
+Compostable PBAT,Bioplastic,9.0,24.71,8.0,73.42,5.21,21.86
+Recycled Paperboard,Paper,5.0,18.85,10.0,95.15,3.35,10.3
+Wooden Crate,Wood,8.0,52.14,7.0,57.5,5.03,24.4
+Mushroom Packaging,Biopolymer,6.0,20.17,10.0,91.96,2.31,23.92
+Steel Packaging,Metal,10.0,56.48,1.0,73.5,9.99,35.87
+HDPE Recycled,Plastic,8.0,37.3,1.0,86.27,6.83,26.17
+Compostable PBAT,Bioplastic,7.0,25.0,8.0,74.35,6.05,20.34
+Steel Packaging,Metal,10.0,55.03,2.0,68.43,10.31,31.45
+LDPE Recycled,Plastic,8.0,34.2,3.0,95.0,6.97,23.74
+Molded Pulp,Pulp,8.0,22.91,9.0,91.59,1.46,14.71
+Biodegradable PLA,Bioplastic,9.0,29.35,8.0,72.09,5.06,20.53
+Tempered Glass Packaging,Glass,10.0,46.42,1.0,30.12,10.09,31.91
+Recycled Paperboard,Paper,7.0,18.51,9.0,91.15,4.59,14.7
+Recycled PET,Plastic,9.0,36.9,3.0,87.12,7.11,19.14
+Palm Leaf Packaging,Natural Fiber,6.0,14.8,10.0,84.07,3.96,11.16
+Kraft Paper,Paper,6.0,16.84,9.0,91.28,3.32,11.65
+Molded Pulp,Pulp,8.0,26.74,9.0,98.92,2.17,12.71
+HDPE Recycled,Plastic,8.0,44.26,1.0,87.67,8.8,24.6
+Palm Leaf Packaging,Natural Fiber,6.0,12.45,9.0,84.16,2.54,14.16
+Kraft Paper,Paper,7.0,16.98,8.0,90.85,5.43,11.08
+Starch-Based Plastic,Bioplastic,7.0,22.36,9.0,70.45,3.85,21.39
+Molded Pulp,Pulp,9.0,28.73,9.0,88.82,2.83,16.23
+Molded Pulp,Pulp,8.0,27.2,9.0,95.99,1.76,8.01
+Molded Pulp,Pulp,8.0,24.02,9.0,95.34,2.79,16.92
+Recycled PET,Plastic,9.0,33.89,3.0,80.72,6.83,21.07
+Glass Bottle,Glass,9.0,36.11,1.0,29.4,9.03,22.72
+Reusable Plastic Crate,Plastic,10.0,48.67,1.0,36.79,8.19,26.51
+Aluminum Can,Metal,7.0,40.72,4.0,72.05,7.24,23.46
+Plywood Box,Wood,10.0,54.33,5.0,52.11,5.51,30.86
+Plywood Box,Wood,8.0,48.73,5.0,55.14,5.73,31.4
+Bagasse Fiber,Natural Fiber,6.0,19.03,10.0,90.93,2.67,10.56
+Bamboo Fiber Packaging,Natural Fiber,7.0,22.22,9.0,78.73,3.04,15.97
+Glass Bottle,Glass,10.0,43.4,1.0,24.85,10.01,28.27
+Seaweed Packaging,Biopolymer,6.0,18.99,10.0,88.42,1.92,16.55
+Plywood Box,Wood,10.0,54.86,6.0,56.88,4.14,32.56
+Reusable Plastic Crate,Plastic,10.0,48.67,2.0,39.17,9.66,28.03
+Steel Packaging,Metal,10.0,54.06,1.0,67.48,9.23,40.34
+Molded Pulp,Pulp,8.0,23.03,9.0,96.41,2.9,11.64
+Corrugated Cardboard,Paper,6.0,20.13,8.0,86.76,3.29,10.85
+Kraft Paper,Paper,6.0,15.21,8.0,92.47,3.78,11.78
+Glass Bottle,Glass,9.0,38.39,1.0,30.68,11.95,25.74
+Recycled Paperboard,Paper,6.0,19.69,9.0,88.86,3.98,6.16
+Recycled Paperboard,Paper,6.0,15.59,9.0,87.83,3.39,9.55
+Steel Packaging,Metal,9.0,49.51,1.0,66.31,8.01,32.68
+Glass Bottle,Glass,9.0,43.52,1.0,33.65,11.59,20.19
+Bagasse Fiber,Natural Fiber,5.0,14.07,10.0,83.57,2.09,15.99
+Molded Pulp,Pulp,8.0,23.73,9.0,91.59,1.0,11.25
+Tempered Glass Packaging,Glass,9.0,46.24,1.0,27.84,10.62,27.3
+Bagasse Fiber,Natural Fiber,5.0,14.97,9.0,84.56,3.09,15.45
+Bagasse Fiber,Natural Fiber,6.0,17.51,10.0,86.04,2.37,14.53
+Biodegradable PLA,Bioplastic,9.0,25.08,7.0,68.47,3.69,21.09
+Bamboo Fiber Packaging,Natural Fiber,6.0,21.31,9.0,75.1,3.3,17.34
+Recycled PET,Plastic,10.0,33.86,4.0,87.34,7.26,19.33
+Starch-Based Plastic,Bioplastic,7.0,23.85,9.0,77.74,4.66,17.06
+Glass Bottle,Glass,9.0,38.24,1.0,34.69,10.48,23.34
+Molded Pulp,Pulp,7.0,23.54,10.0,92.08,2.25,10.94
+Molded Pulp,Pulp,9.0,29.99,9.0,90.36,1.15,9.53
+Bagasse Fiber,Natural Fiber,6.0,17.24,10.0,86.99,2.93,14.67
+Molded Pulp,Pulp,8.0,25.5,9.0,94.19,2.68,15.37
+Wooden Crate,Wood,8.0,41.06,6.0,61.64,4.44,23.4
+Corrugated Cardboard,Paper,6.0,19.24,8.0,84.77,2.74,11.82
+Molded Pulp,Pulp,9.0,24.3,9.0,96.74,2.12,17.45
+Recycled Paperboard,Paper,5.0,16.14,9.0,86.73,2.84,11.01
+Corrugated Cardboard,Paper,7.0,19.38,8.0,79.96,2.77,14.79
+Bamboo Fiber Packaging,Natural Fiber,6.0,23.03,9.0,81.56,3.2,16.1
+Starch-Based Plastic,Bioplastic,7.0,22.24,8.0,70.18,4.97,19.89
+Wooden Crate,Wood,8.0,44.12,6.0,65.81,3.16,26.53
+Wooden Crate,Wood,8.0,44.27,6.0,60.24,5.23,27.92
+Glass Bottle,Glass,9.0,38.91,1.0,27.14,11.2,22.11
+Bagasse Fiber,Natural Fiber,6.0,16.46,9.0,84.48,3.11,13.83
+Corrugated Cardboard,Paper,7.0,19.72,9.0,87.0,2.6,13.81
+Hemp Fiber Board,Natural Fiber,7.0,30.38,9.0,71.79,1.71,19.44
+Cornstarch Packaging,Biopolymer,7.0,18.28,9.0,83.14,3.86,16.12
+Hemp Fiber Board,Natural Fiber,8.0,31.16,10.0,79.6,2.88,21.64
+Tin Container,Metal,8.0,35.76,2.0,69.95,7.05,29.11
+Kraft Paper,Paper,6.0,16.47,10.0,88.82,2.04,6.56
+Recycled PET,Plastic,9.0,38.21,3.0,87.8,7.77,24.77
+Hemp Fiber Board,Natural Fiber,8.0,32.7,9.0,76.29,3.3,20.48
+Mushroom Packaging,Biopolymer,7.0,20.42,10.0,90.43,1.61,18.82
+Wooden Crate,Wood,9.0,49.27,6.0,57.69,5.79,26.54
+Kraft Paper,Paper,6.0,15.53,10.0,91.3,3.02,8.94
+Biodegradable PLA,Bioplastic,9.0,25.73,7.0,63.59,5.0,18.42
+Hemp Fiber Board,Natural Fiber,7.0,29.11,9.0,82.61,2.32,20.24
+Tin Container,Metal,10.0,41.33,2.0,73.81,7.52,28.88
+HDPE Recycled,Plastic,7.0,37.1,1.0,86.54,7.65,22.72
+Plywood Box,Wood,9.0,48.0,6.0,55.2,4.1,31.57
+Hemp Fiber Board,Natural Fiber,7.0,27.1,9.0,82.2,2.02,14.71
+Recycled PET,Plastic,9.0,31.34,3.0,85.37,7.19,20.19
+Wooden Crate,Wood,8.0,44.75,6.0,62.05,5.04,27.31
+Aluminum Can,Metal,8.0,35.86,3.0,73.52,7.55,21.41
+Corrugated Cardboard,Paper,7.0,21.13,9.0,88.35,5.17,9.66
+Biodegradable PLA,Bioplastic,9.0,28.01,7.0,63.29,4.24,21.24
+Glass Bottle,Glass,9.0,38.46,1.0,28.6,10.58,22.37
+Starch-Based Plastic,Bioplastic,8.0,27.8,8.0,72.27,4.03,14.3
+Tempered Glass Packaging,Glass,10.0,40.57,1.0,31.09,11.07,29.1
+HDPE Recycled,Plastic,8.0,41.2,2.0,87.28,8.31,26.94
+HDPE Recycled,Plastic,9.0,39.01,3.0,92.87,6.76,19.84
+Bagasse Fiber,Natural Fiber,6.0,19.0,9.0,80.28,3.81,21.46
+Bamboo Fiber Packaging,Natural Fiber,7.0,19.69,9.0,84.97,4.05,18.45
+Tempered Glass Packaging,Glass,10.0,43.91,1.0,32.05,10.2,29.61
+Corrugated Cardboard,Paper,7.0,19.86,9.0,85.02,2.02,8.08
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.88,9.0,79.81,5.06,17.34
+Recycled Paperboard,Paper,7.0,21.38,8.0,80.33,3.77,8.77
+Tin Container,Metal,9.0,39.07,2.0,68.63,8.59,27.41
+Plywood Box,Wood,9.0,45.18,6.0,60.51,4.8,31.34
+Bamboo Fiber Packaging,Natural Fiber,8.0,23.99,9.0,81.28,2.37,16.41
+HDPE Recycled,Plastic,8.0,42.82,3.0,88.9,6.87,20.31
+Recycled PET,Plastic,9.0,34.66,3.0,81.88,7.83,24.74
+Compostable PBAT,Bioplastic,7.0,24.68,8.0,75.7,5.68,17.55
+HDPE Recycled,Plastic,9.0,41.68,2.0,83.57,7.94,23.1
+Bagasse Fiber,Natural Fiber,6.0,16.23,10.0,80.45,1.33,15.48
+Recycled PET,Plastic,9.0,35.19,3.0,81.05,8.21,23.86
+Corrugated Cardboard,Paper,8.0,23.97,8.0,84.07,5.21,9.82
+Reusable Plastic Crate,Plastic,9.0,51.15,2.0,35.0,8.84,25.18
+Recycled PET,Plastic,9.0,32.56,2.0,88.15,5.26,19.01
+Reusable Plastic Crate,Plastic,10.0,52.73,2.0,35.37,10.24,25.62
+HDPE Recycled,Plastic,7.0,37.94,1.0,88.18,6.66,25.54
+Plywood Box,Wood,9.0,47.37,4.0,51.29,3.45,34.0
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.23,9.0,76.9,2.35,13.58
+Cornstarch Packaging,Biopolymer,7.0,21.96,9.0,82.02,2.16,14.72
+Corrugated Cardboard,Paper,7.0,18.02,7.0,76.71,2.84,11.25
+Recycled Paperboard,Paper,5.0,16.17,9.0,89.47,4.29,8.23
+Hemp Fiber Board,Natural Fiber,7.0,26.32,9.0,81.26,3.05,17.33
+LDPE Recycled,Plastic,6.0,29.97,2.0,88.97,7.46,21.92
+Mushroom Packaging,Biopolymer,7.0,21.94,10.0,92.25,1.56,21.93
+Kraft Paper,Paper,5.0,12.16,9.0,89.03,2.31,10.41
+Recycled Paperboard,Paper,6.0,19.01,9.0,87.41,4.41,8.45
+Corrugated Cardboard,Paper,7.0,21.15,8.0,80.53,3.81,12.58
+Wooden Crate,Wood,7.0,41.95,6.0,56.74,4.42,27.08
+Recycled Paperboard,Paper,5.0,15.5,9.0,86.1,2.93,9.27
+Biodegradable PLA,Bioplastic,9.0,24.17,7.0,58.68,5.91,19.98
+Glass Bottle,Glass,9.0,45.6,1.0,33.21,10.86,25.32
+Kraft Paper,Paper,6.0,14.51,9.0,81.87,2.9,11.57
+Bagasse Fiber,Natural Fiber,5.0,16.17,9.0,83.64,1.5,13.11
+Corrugated Cardboard,Paper,6.0,18.29,8.0,80.29,2.66,10.22
+Cornstarch Packaging,Biopolymer,7.0,19.41,9.0,80.16,3.74,16.16
+LDPE Recycled,Plastic,7.0,30.25,2.0,85.25,8.35,24.18
+Kraft Paper,Paper,6.0,15.0,9.0,85.69,4.01,11.04
+Compostable PBAT,Bioplastic,8.0,27.68,8.0,67.79,4.78,20.97
+Reusable Plastic Crate,Plastic,9.0,44.67,2.0,44.68,10.0,29.23
+Corrugated Cardboard,Paper,7.0,19.63,8.0,84.62,4.75,7.3
+Cornstarch Packaging,Biopolymer,7.0,20.28,10.0,78.38,2.59,15.46
+Compostable PBAT,Bioplastic,9.0,30.08,8.0,70.59,5.15,20.2
+Recycled PET,Plastic,9.0,36.01,3.0,82.68,7.58,24.32
+Steel Packaging,Metal,9.0,57.21,1.0,69.85,8.87,29.93
+Biodegradable PLA,Bioplastic,9.0,27.88,8.0,66.2,5.65,21.28
+Plywood Box,Wood,9.0,50.16,5.0,57.44,5.79,33.24
+Molded Pulp,Pulp,9.0,23.62,9.0,94.6,2.95,9.83
+Hemp Fiber Board,Natural Fiber,9.0,32.6,8.0,80.5,2.93,18.87
+Kraft Paper,Paper,5.0,13.84,9.0,89.78,2.17,11.07
+Hemp Fiber Board,Natural Fiber,8.0,29.26,10.0,77.45,3.07,19.57
+Recycled Paperboard,Paper,6.0,19.99,9.0,93.22,3.29,9.67
+Glass Bottle,Glass,9.0,38.08,1.0,28.21,11.42,26.32
+Bagasse Fiber,Natural Fiber,6.0,15.26,10.0,87.46,3.9,17.21
+Mushroom Packaging,Biopolymer,6.0,19.94,10.0,91.57,2.0,20.39
+Molded Pulp,Pulp,8.0,25.03,10.0,96.37,1.91,11.78
+Recycled PET,Plastic,9.0,38.12,3.0,82.99,6.06,23.6
+Steel Packaging,Metal,10.0,56.79,1.0,65.32,9.15,29.52
+Kraft Paper,Paper,6.0,15.34,8.0,87.09,3.54,11.82
+Aluminum Can,Metal,8.0,39.02,3.0,79.05,7.78,20.25
+HDPE Recycled,Plastic,9.0,45.7,2.0,90.59,6.71,22.69
+HDPE Recycled,Plastic,7.0,39.81,2.0,91.52,6.76,26.56
+Steel Packaging,Metal,10.0,51.28,1.0,67.11,9.07,33.1
+Palm Leaf Packaging,Natural Fiber,6.0,15.66,10.0,79.33,3.05,17.09
+Compostable PBAT,Bioplastic,7.0,24.25,7.0,67.3,5.76,18.76
+Molded Pulp,Pulp,7.0,22.95,8.0,93.93,1.41,14.35
+Kraft Paper,Paper,6.0,17.88,9.0,86.55,3.21,11.41
+Tempered Glass Packaging,Glass,10.0,38.06,1.0,29.11,12.51,31.7
+Recycled PET,Plastic,9.0,32.32,3.0,86.35,8.1,19.99
+Corrugated Cardboard,Paper,8.0,22.01,8.0,88.34,4.15,10.66
+Tin Container,Metal,9.0,41.93,2.0,75.74,9.28,26.28
+Tin Container,Metal,8.0,35.89,1.0,67.34,6.97,28.04
+Recycled PET,Plastic,9.0,34.35,4.0,81.14,6.3,21.88
+Corrugated Cardboard,Paper,9.0,20.15,8.0,83.14,1.13,12.53
+Molded Pulp,Pulp,7.0,19.73,9.0,96.81,1.64,13.28
+Plywood Box,Wood,9.0,58.09,5.0,51.97,4.6,27.78
+Kraft Paper,Paper,6.0,15.47,9.0,81.22,4.06,8.48
+Tin Container,Metal,9.0,35.22,2.0,68.1,8.61,26.45
+Wooden Crate,Wood,8.0,47.39,6.0,60.08,4.8,27.91
+Tin Container,Metal,10.0,41.98,2.0,64.61,7.95,27.28
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.75,9.0,82.23,3.1,13.38
+Recycled PET,Plastic,9.0,37.61,3.0,81.35,7.16,27.05
+Recycled PET,Plastic,9.0,39.31,3.0,82.11,6.52,19.88
+Recycled PET,Plastic,9.0,32.57,3.0,79.45,8.85,25.9
+Tempered Glass Packaging,Glass,10.0,43.6,1.0,27.87,11.37,27.06
+HDPE Recycled,Plastic,7.0,39.08,1.0,94.25,7.66,23.05
+Recycled Paperboard,Paper,7.0,18.67,9.0,91.49,1.52,6.24
+Tempered Glass Packaging,Glass,10.0,42.01,2.0,27.37,12.44,30.05
+Hemp Fiber Board,Natural Fiber,8.0,31.98,8.0,76.9,2.1,19.06
+Bamboo Fiber Packaging,Natural Fiber,7.0,20.73,9.0,82.08,4.14,17.65
+Seaweed Packaging,Biopolymer,6.0,15.23,9.0,91.59,2.79,15.48
+Starch-Based Plastic,Bioplastic,7.0,18.72,7.0,67.86,4.1,14.72
+Glass Bottle,Glass,9.0,42.42,1.0,29.48,10.28,27.02
+Kraft Paper,Paper,6.0,14.43,10.0,86.48,3.25,8.91
+Palm Leaf Packaging,Natural Fiber,6.0,14.93,10.0,84.9,2.77,15.83
+Recycled Paperboard,Paper,5.0,15.95,10.0,85.5,2.82,6.51
+HDPE Recycled,Plastic,8.0,41.79,3.0,95.0,8.18,29.07
+Mushroom Packaging,Biopolymer,7.0,21.91,10.0,89.55,2.45,20.17
+Bagasse Fiber,Natural Fiber,5.0,17.22,10.0,93.1,4.43,19.75
+Bamboo Fiber Packaging,Natural Fiber,8.0,24.14,9.0,74.42,3.38,18.24
+Hemp Fiber Board,Natural Fiber,9.0,34.43,9.0,74.03,5.01,23.65
+Biodegradable PLA,Bioplastic,9.0,24.83,7.0,63.29,6.6,21.23
+Mushroom Packaging,Biopolymer,7.0,24.41,10.0,90.84,1.88,20.85
+Glass Bottle,Glass,9.0,39.16,2.0,33.87,11.46,25.74
+Reusable Plastic Crate,Plastic,10.0,44.23,2.0,40.93,9.13,22.29
+Aluminum Can,Metal,8.0,36.72,3.0,75.44,7.78,22.23
+Reusable Plastic Crate,Plastic,10.0,51.88,3.0,39.57,8.75,25.0
+Compostable PBAT,Bioplastic,8.0,26.0,9.0,73.41,4.71,20.49
+Bagasse Fiber,Natural Fiber,5.0,15.38,10.0,87.94,2.09,16.81
+Molded Pulp,Pulp,8.0,26.17,9.0,95.04,3.43,16.12
+HDPE Recycled,Plastic,8.0,43.94,2.0,91.04,8.28,22.0
+HDPE Recycled,Plastic,8.0,40.03,2.0,92.81,6.95,21.25
+Palm Leaf Packaging,Natural Fiber,6.0,13.18,10.0,86.23,2.14,19.13
+Recycled Paperboard,Paper,7.0,20.26,9.0,98.67,3.45,9.02
+Kraft Paper,Paper,6.0,14.25,9.0,83.7,4.82,15.37
+Recycled Paperboard,Paper,5.0,17.8,9.0,92.11,5.12,8.37
+Tempered Glass Packaging,Glass,10.0,41.84,1.0,26.99,9.51,25.99
+Cornstarch Packaging,Biopolymer,7.0,19.94,8.0,83.98,3.24,20.32
+Recycled PET,Plastic,10.0,37.17,3.0,85.22,5.81,19.19
+LDPE Recycled,Plastic,7.0,32.21,2.0,88.4,8.78,22.14
+Hemp Fiber Board,Natural Fiber,9.0,33.53,9.0,73.29,4.07,16.84
+Kraft Paper,Paper,7.0,17.14,9.0,90.15,2.54,11.6
+Compostable PBAT,Bioplastic,10.0,28.58,8.0,72.38,6.48,22.15
+Recycled Paperboard,Paper,5.0,15.47,8.0,89.05,1.84,7.92
+Kraft Paper,Paper,5.0,14.33,9.0,87.29,4.33,9.23
+Molded Pulp,Pulp,8.0,23.84,9.0,97.01,1.98,14.36
+Recycled PET,Plastic,8.0,31.35,3.0,93.99,6.34,20.1
+HDPE Recycled,Plastic,8.0,40.2,2.0,88.01,6.92,20.7
+Steel Packaging,Metal,10.0,50.98,1.0,66.64,6.95,31.25
+Bamboo Fiber Packaging,Natural Fiber,6.0,23.53,9.0,78.55,3.23,17.35
+Recycled PET,Plastic,8.0,31.51,4.0,86.63,7.62,23.85
+LDPE Recycled,Plastic,6.0,29.53,2.0,92.19,6.88,22.13
+Glass Bottle,Glass,10.0,46.39,1.0,32.4,11.22,26.47
+Compostable PBAT,Bioplastic,8.0,23.95,8.0,66.9,7.2,19.04
+Corrugated Cardboard,Paper,7.0,21.35,9.0,84.77,4.15,13.01
+HDPE Recycled,Plastic,7.0,40.68,2.0,88.8,7.38,20.57
+Molded Pulp,Pulp,8.0,26.27,8.0,94.03,3.72,12.79
+Glass Bottle,Glass,10.0,41.25,1.0,33.62,11.87,23.27
+Reusable Plastic Crate,Plastic,10.0,49.94,2.0,39.13,9.32,28.06
+Bagasse Fiber,Natural Fiber,5.0,17.26,10.0,86.05,2.98,18.83
+Recycled PET,Plastic,9.0,34.13,4.0,77.99,7.21,20.8
+Recycled Paperboard,Paper,6.0,17.97,9.0,87.87,3.79,11.58
+Palm Leaf Packaging,Natural Fiber,6.0,16.29,10.0,85.67,3.21,13.89
+Cornstarch Packaging,Biopolymer,7.0,19.43,9.0,77.53,2.04,17.5
+Recycled Paperboard,Paper,6.0,19.61,9.0,91.0,3.59,12.46
+Kraft Paper,Paper,5.0,13.93,8.0,87.41,2.97,8.17
+Molded Pulp,Pulp,8.0,27.71,8.0,94.44,2.94,17.2
+Kraft Paper,Paper,6.0,15.29,9.0,91.24,4.24,11.08
+Recycled Paperboard,Paper,5.0,16.5,9.0,95.75,4.11,8.38
+Palm Leaf Packaging,Natural Fiber,6.0,14.36,10.0,84.4,2.72,8.11
+Recycled PET,Plastic,9.0,34.55,4.0,81.73,5.87,21.64
+Recycled Paperboard,Paper,6.0,16.65,10.0,91.03,4.83,12.17
+Wooden Crate,Wood,9.0,47.35,6.0,57.68,4.26,28.62
+Recycled PET,Plastic,8.0,33.43,3.0,86.07,6.56,19.2
+Corrugated Cardboard,Paper,8.0,20.76,8.0,80.56,1.65,9.96
+HDPE Recycled,Plastic,8.0,45.46,2.0,87.86,8.0,29.18
+Kraft Paper,Paper,6.0,12.81,9.0,90.66,3.22,10.06
+Wooden Crate,Wood,8.0,46.06,5.0,59.37,4.49,27.56
+Plywood Box,Wood,9.0,51.64,5.0,54.42,2.97,28.49
+Palm Leaf Packaging,Natural Fiber,5.0,13.19,10.0,87.34,2.02,14.61
+Corrugated Cardboard,Paper,7.0,21.48,8.0,85.45,6.23,14.46
+HDPE Recycled,Plastic,8.0,45.3,2.0,91.49,7.94,25.55
+Glass Bottle,Glass,9.0,39.72,1.0,28.65,10.82,21.02
+Corrugated Cardboard,Paper,7.0,19.94,8.0,83.96,3.76,10.83
+Corrugated Cardboard,Paper,6.0,16.36,7.0,81.66,4.56,11.77
+Tin Container,Metal,9.0,37.7,2.0,69.66,8.68,26.55
+HDPE Recycled,Plastic,8.0,41.29,2.0,93.16,8.1,23.26
+Hemp Fiber Board,Natural Fiber,8.0,30.56,9.0,74.96,2.73,18.51
+Tin Container,Metal,9.0,39.67,2.0,71.22,7.06,23.96
+Corrugated Cardboard,Paper,8.0,21.2,8.0,85.54,4.84,8.01
+Corrugated Cardboard,Paper,7.0,20.92,9.0,92.84,4.11,10.43
+Plywood Box,Wood,9.0,52.5,4.0,50.41,6.32,26.63
+Kraft Paper,Paper,6.0,14.19,9.0,89.51,3.18,9.32
+Glass Bottle,Glass,10.0,40.38,1.0,26.32,10.0,23.74
+LDPE Recycled,Plastic,6.0,27.91,2.0,87.43,7.4,24.89
+Molded Pulp,Pulp,8.0,23.35,9.0,93.36,1.0,12.43
+HDPE Recycled,Plastic,7.0,37.23,2.0,88.9,8.56,28.12
+Bamboo Fiber Packaging,Natural Fiber,7.0,21.39,9.0,74.82,3.05,19.63
+Compostable PBAT,Bioplastic,8.0,28.29,7.0,69.3,4.21,15.04
+Kraft Paper,Paper,6.0,14.13,9.0,87.51,3.42,9.25
+Glass Bottle,Glass,9.0,38.05,1.0,31.37,10.56,22.18
+Recycled Paperboard,Paper,7.0,18.77,9.0,88.21,3.0,7.73
+Tin Container,Metal,10.0,40.32,1.0,73.01,8.03,27.03
+Recycled Paperboard,Paper,7.0,16.99,9.0,86.91,3.95,9.86
+Tempered Glass Packaging,Glass,10.0,43.26,1.0,23.51,10.88,32.77
+Bamboo Fiber Packaging,Natural Fiber,7.0,24.55,9.0,71.0,2.6,23.08
+Seaweed Packaging,Biopolymer,7.0,21.74,10.0,90.72,2.77,19.94
+Biodegradable PLA,Bioplastic,9.0,26.99,7.0,68.52,6.54,22.26
+Compostable PBAT,Bioplastic,8.0,25.7,8.0,69.98,4.15,19.25
+Hemp Fiber Board,Natural Fiber,8.0,31.94,10.0,80.23,3.88,21.46
+Molded Pulp,Pulp,8.0,21.99,9.0,97.62,1.0,16.34
+Tempered Glass Packaging,Glass,10.0,42.77,1.0,30.09,11.81,27.78
+Bagasse Fiber,Natural Fiber,6.0,16.96,9.0,85.96,3.32,12.74
+Compostable PBAT,Bioplastic,7.0,21.53,8.0,67.02,6.88,19.09
+Aluminum Can,Metal,8.0,35.18,3.0,79.56,7.67,21.09
+Tempered Glass Packaging,Glass,9.0,45.28,1.0,34.3,10.35,30.95
+Tin Container,Metal,9.0,40.07,1.0,71.12,7.63,25.36
+Plywood Box,Wood,9.0,50.9,6.0,58.53,6.03,33.45
+LDPE Recycled,Plastic,6.0,33.31,2.0,83.31,7.62,21.27
+Glass Bottle,Glass,10.0,41.29,1.0,22.98,9.26,23.45
+Glass Bottle,Glass,8.0,35.23,1.0,29.08,10.12,22.82
+Recycled PET,Plastic,8.0,35.67,3.0,79.96,6.35,18.87
+Biodegradable PLA,Bioplastic,9.0,26.12,7.0,65.08,3.92,21.02
+Biodegradable PLA,Bioplastic,9.0,28.98,7.0,58.26,5.99,25.09
+Recycled PET,Plastic,9.0,38.4,4.0,87.22,6.87,23.11
+HDPE Recycled,Plastic,8.0,39.04,2.0,85.5,6.31,23.32
+Steel Packaging,Metal,10.0,53.8,1.0,65.61,10.27,35.58
+Mushroom Packaging,Biopolymer,6.0,22.55,10.0,89.26,2.36,16.4
+Cornstarch Packaging,Biopolymer,8.0,21.8,9.0,76.75,1.35,17.79
+Reusable Plastic Crate,Plastic,10.0,50.88,2.0,35.76,8.13,31.59
+Glass Bottle,Glass,10.0,38.06,1.0,28.13,9.46,26.14
+Compostable PBAT,Bioplastic,8.0,24.53,8.0,70.22,5.55,19.83
+Biodegradable PLA,Bioplastic,9.0,29.48,7.0,67.78,6.02,22.22
+Compostable PBAT,Bioplastic,9.0,28.02,8.0,71.47,6.01,21.63
+Mushroom Packaging,Biopolymer,6.0,18.34,10.0,88.71,1.53,22.38
+Recycled PET,Plastic,8.0,38.48,2.0,82.14,7.16,19.97
+Aluminum Can,Metal,8.0,33.99,3.0,74.19,7.77,26.59
+HDPE Recycled,Plastic,9.0,42.74,3.0,95.0,7.32,28.34
+HDPE Recycled,Plastic,8.0,40.98,1.0,89.02,8.07,22.68
+Hemp Fiber Board,Natural Fiber,9.0,32.76,9.0,73.35,2.44,19.95
+Tempered Glass Packaging,Glass,10.0,43.46,1.0,25.15,9.26,29.46
+Corrugated Cardboard,Paper,7.0,18.89,9.0,88.18,4.07,10.76
+Wooden Crate,Wood,8.0,48.2,6.0,60.77,6.71,28.11
+Molded Pulp,Pulp,8.0,24.65,10.0,95.36,1.69,15.17
+Seaweed Packaging,Biopolymer,6.0,20.35,10.0,87.5,2.24,17.6
+Reusable Plastic Crate,Plastic,10.0,50.21,2.0,42.85,9.02,27.38
+Molded Pulp,Pulp,9.0,24.91,10.0,95.18,2.93,12.76
+Molded Pulp,Pulp,8.0,25.55,9.0,98.62,2.5,16.05
+HDPE Recycled,Plastic,9.0,38.65,2.0,87.26,7.59,28.4
+Glass Bottle,Glass,9.0,41.09,2.0,29.07,11.34,22.74
+Corrugated Cardboard,Paper,7.0,18.69,8.0,81.2,2.32,9.05
+Biodegradable PLA,Bioplastic,9.0,25.41,7.0,67.73,4.85,20.84
+Kraft Paper,Paper,5.0,13.96,9.0,91.19,3.27,9.12
+Corrugated Cardboard,Paper,7.0,16.03,9.0,82.74,3.64,9.59
+Palm Leaf Packaging,Natural Fiber,7.0,15.78,10.0,80.77,1.0,12.71
+HDPE Recycled,Plastic,9.0,40.12,2.0,92.46,8.75,23.24
+Kraft Paper,Paper,7.0,17.5,8.0,84.36,3.59,16.53
+Corrugated Cardboard,Paper,7.0,20.4,8.0,86.87,3.82,8.39
+Glass Bottle,Glass,9.0,43.07,1.0,27.69,10.77,24.58
+Reusable Plastic Crate,Plastic,9.0,47.85,2.0,45.86,7.66,27.43
+Glass Bottle,Glass,9.0,39.44,1.0,25.93,11.27,20.75
+Corrugated Cardboard,Paper,5.0,17.04,8.0,84.84,4.33,10.5
+HDPE Recycled,Plastic,9.0,41.32,1.0,90.17,7.26,25.01
+Wooden Crate,Wood,8.0,48.9,6.0,59.84,5.59,24.9
+Hemp Fiber Board,Natural Fiber,8.0,29.65,9.0,78.63,1.44,15.69
+Hemp Fiber Board,Natural Fiber,8.0,30.41,9.0,74.21,1.59,20.2
+Molded Pulp,Pulp,7.0,23.23,9.0,93.59,3.79,14.83
+Steel Packaging,Metal,10.0,51.91,1.0,64.22,8.14,35.65
+Plywood Box,Wood,9.0,53.95,5.0,52.34,5.48,29.22
+LDPE Recycled,Plastic,7.0,28.51,1.0,92.53,7.73,20.53
+Recycled Paperboard,Paper,6.0,17.04,10.0,90.67,4.78,9.99
+Bagasse Fiber,Natural Fiber,5.0,15.62,10.0,84.06,1.06,15.04
+Palm Leaf Packaging,Natural Fiber,6.0,14.56,10.0,86.99,2.48,16.02
+Steel Packaging,Metal,10.0,60.99,1.0,71.7,9.1,30.1
+Glass Bottle,Glass,9.0,32.52,1.0,30.66,10.88,28.48
+Wooden Crate,Wood,8.0,45.03,6.0,61.23,4.3,31.15
+Reusable Plastic Crate,Plastic,10.0,50.73,2.0,40.65,8.89,28.72
+Tin Container,Metal,9.0,36.05,2.0,68.72,7.32,31.24
+Reusable Plastic Crate,Plastic,10.0,47.63,2.0,37.24,9.51,23.67
+Recycled Paperboard,Paper,6.0,18.53,9.0,88.97,3.97,8.17
+Plywood Box,Wood,8.0,50.18,5.0,54.27,3.65,31.92
+Compostable PBAT,Bioplastic,8.0,26.64,8.0,68.08,5.26,19.69
+Plywood Box,Wood,10.0,54.35,5.0,56.77,7.15,31.97
+Corrugated Cardboard,Paper,7.0,20.4,8.0,88.21,3.85,12.03
+HDPE Recycled,Plastic,7.0,41.44,2.0,84.69,8.28,25.54
+Corrugated Cardboard,Paper,7.0,19.87,9.0,85.91,5.56,16.42
+HDPE Recycled,Plastic,8.0,37.65,3.0,94.24,9.28,25.34
+Aluminum Can,Metal,8.0,37.55,4.0,75.37,7.88,26.02
+LDPE Recycled,Plastic,7.0,30.37,2.0,86.67,7.99,23.9
+Biodegradable PLA,Bioplastic,9.0,31.37,7.0,64.23,5.59,20.1
+Recycled Paperboard,Paper,5.0,18.92,9.0,89.32,2.44,13.14
+Recycled Paperboard,Paper,5.0,16.39,9.0,89.69,2.21,7.13
+Reusable Plastic Crate,Plastic,10.0,52.65,2.0,37.92,8.58,25.46
+Mushroom Packaging,Biopolymer,7.0,22.63,10.0,90.5,1.95,21.5
+Plywood Box,Wood,10.0,50.33,5.0,57.05,4.92,32.38
+LDPE Recycled,Plastic,8.0,34.76,2.0,91.99,9.25,19.73
+Tin Container,Metal,9.0,36.29,2.0,71.75,7.91,27.33
+Recycled Paperboard,Paper,6.0,17.71,8.0,90.17,1.84,6.62
+Reusable Plastic Crate,Plastic,9.0,50.79,3.0,47.59,8.71,27.47
+Corrugated Cardboard,Paper,8.0,18.62,8.0,88.95,2.79,12.68
+Aluminum Can,Metal,8.0,35.17,3.0,75.93,8.4,21.04
+Corrugated Cardboard,Paper,6.0,17.99,7.0,85.0,2.0,9.83
+LDPE Recycled,Plastic,7.0,28.17,2.0,86.26,9.41,21.5
+HDPE Recycled,Plastic,8.0,41.36,2.0,88.31,8.3,26.82
+Palm Leaf Packaging,Natural Fiber,5.0,13.35,9.0,85.52,1.0,14.53
+Wooden Crate,Wood,9.0,45.24,7.0,61.73,5.06,26.59
+Bagasse Fiber,Natural Fiber,6.0,17.86,10.0,80.18,1.36,17.55
+Kraft Paper,Paper,7.0,15.96,8.0,80.83,2.44,13.19
+Corrugated Cardboard,Paper,6.0,18.7,8.0,86.32,5.4,6.86
+Tempered Glass Packaging,Glass,10.0,39.6,1.0,25.72,10.99,29.04
+Molded Pulp,Pulp,8.0,28.9,9.0,89.98,3.72,17.61
+Mushroom Packaging,Biopolymer,7.0,21.61,10.0,92.49,3.36,15.48
+Recycled Paperboard,Paper,6.0,19.84,9.0,91.26,2.87,9.35
+HDPE Recycled,Plastic,9.0,39.31,3.0,88.78,7.36,20.31
+LDPE Recycled,Plastic,7.0,32.59,3.0,89.06,7.11,22.74
+Reusable Plastic Crate,Plastic,10.0,47.19,2.0,36.82,8.8,27.55
+Molded Pulp,Pulp,7.0,24.3,10.0,93.36,1.7,14.16
+Tin Container,Metal,9.0,36.99,2.0,69.09,8.99,25.72
+Tempered Glass Packaging,Glass,10.0,45.54,1.0,25.51,12.98,29.97
+Glass Bottle,Glass,10.0,41.81,1.0,29.38,10.64,22.15
+Corrugated Cardboard,Paper,6.0,19.15,9.0,89.03,4.42,12.1
+Seaweed Packaging,Biopolymer,6.0,17.49,10.0,92.69,2.06,22.81
+Starch-Based Plastic,Bioplastic,6.0,23.14,8.0,69.22,5.72,21.91
+Aluminum Can,Metal,7.0,31.26,3.0,76.19,7.03,21.86
+Starch-Based Plastic,Bioplastic,7.0,25.54,8.0,71.65,5.51,18.62
+Glass Bottle,Glass,8.0,42.7,1.0,32.66,11.45,27.25
+Tin Container,Metal,9.0,35.26,3.0,68.48,8.66,24.49
+Glass Bottle,Glass,9.0,46.67,1.0,31.34,10.49,24.64
+Kraft Paper,Paper,5.0,13.53,9.0,93.66,3.12,11.88
+Wooden Crate,Wood,7.0,36.0,6.0,62.07,3.21,27.19
+Corrugated Cardboard,Paper,7.0,18.76,7.0,83.05,4.15,16.15
+Reusable Plastic Crate,Plastic,10.0,49.81,1.0,35.0,10.57,27.31
+LDPE Recycled,Plastic,8.0,34.06,2.0,89.0,7.42,23.82
+Recycled PET,Plastic,9.0,34.78,3.0,83.62,7.41,21.25
+Biodegradable PLA,Bioplastic,9.0,27.11,6.0,65.53,5.12,23.27
+LDPE Recycled,Plastic,7.0,32.86,2.0,89.78,7.35,27.25
+Wooden Crate,Wood,8.0,40.79,6.0,63.0,4.7,30.34
+Glass Bottle,Glass,9.0,36.83,2.0,35.05,10.31,29.78
+Bamboo Fiber Packaging,Natural Fiber,7.0,23.86,10.0,79.75,2.72,17.71
+Glass Bottle,Glass,8.0,34.08,1.0,27.65,8.13,19.32
+Steel Packaging,Metal,10.0,53.69,1.0,70.09,9.23,34.9
+Molded Pulp,Pulp,8.0,22.88,9.0,95.96,2.23,13.84
+Bagasse Fiber,Natural Fiber,6.0,18.01,10.0,84.63,3.82,20.27
+Tin Container,Metal,9.0,39.32,2.0,72.92,7.98,28.95
+Biodegradable PLA,Bioplastic,8.0,24.15,7.0,66.31,4.5,26.12
+Starch-Based Plastic,Bioplastic,7.0,23.36,8.0,67.75,5.15,17.4
+Tempered Glass Packaging,Glass,10.0,45.03,1.0,30.84,12.91,27.7
+Molded Pulp,Pulp,7.0,22.61,9.0,92.83,3.02,15.83
+Biodegradable PLA,Bioplastic,8.0,23.94,7.0,62.46,6.85,23.84
+Corrugated Cardboard,Paper,6.0,17.26,7.0,83.87,5.69,13.04
+Mushroom Packaging,Biopolymer,7.0,23.71,10.0,94.75,1.57,18.24
+Wooden Crate,Wood,8.0,41.98,6.0,62.81,4.88,27.41
+Compostable PBAT,Bioplastic,9.0,26.92,8.0,71.62,5.71,22.05
+Tin Container,Metal,9.0,37.84,2.0,72.5,10.09,30.03
+Molded Pulp,Pulp,9.0,26.63,9.0,96.17,5.43,17.39
+Aluminum Can,Metal,8.0,32.36,3.0,75.72,8.0,24.17
+Tempered Glass Packaging,Glass,10.0,41.67,1.0,27.6,12.25,27.29
+Hemp Fiber Board,Natural Fiber,9.0,32.51,9.0,79.79,3.84,19.68
+HDPE Recycled,Plastic,8.0,41.09,2.0,90.69,7.83,24.73
+HDPE Recycled,Plastic,8.0,40.84,3.0,95.0,8.2,25.49
+Molded Pulp,Pulp,8.0,22.58,9.0,94.72,2.8,18.18
+Hemp Fiber Board,Natural Fiber,9.0,32.26,9.0,83.17,3.11,17.08
+LDPE Recycled,Plastic,8.0,32.93,2.0,89.31,7.52,21.14
+LDPE Recycled,Plastic,7.0,32.7,2.0,88.19,7.79,25.59
+Recycled Paperboard,Paper,6.0,17.65,9.0,91.05,3.49,6.26
+Molded Pulp,Pulp,8.0,25.95,10.0,96.58,2.95,13.41
+Kraft Paper,Paper,5.0,13.95,8.0,84.6,3.85,11.42
+Starch-Based Plastic,Bioplastic,8.0,30.59,8.0,73.65,6.37,20.87
+LDPE Recycled,Plastic,7.0,34.76,1.0,84.14,7.28,23.67
+Glass Bottle,Glass,9.0,39.72,1.0,30.78,11.9,24.56
+Recycled PET,Plastic,8.0,34.85,2.0,89.09,8.01,23.31
+Recycled Paperboard,Paper,6.0,18.41,9.0,88.43,4.13,7.96
+Glass Bottle,Glass,9.0,42.21,1.0,30.62,10.97,23.99
+Recycled PET,Plastic,9.0,31.57,4.0,87.46,9.16,22.11
+Kraft Paper,Paper,7.0,16.94,9.0,88.22,4.48,10.29
+Biodegradable PLA,Bioplastic,8.0,26.99,7.0,61.69,5.91,21.35
+Glass Bottle,Glass,9.0,37.35,1.0,27.55,11.56,28.85
+Kraft Paper,Paper,6.0,14.86,8.0,85.81,1.67,10.97
+Kraft Paper,Paper,5.0,12.14,8.0,89.65,3.58,10.47
+Kraft Paper,Paper,7.0,16.43,10.0,88.11,4.74,14.79
+Biodegradable PLA,Bioplastic,9.0,26.42,7.0,60.65,5.68,22.09
+Glass Bottle,Glass,9.0,40.55,1.0,24.52,12.73,22.91
+Biodegradable PLA,Bioplastic,9.0,27.17,7.0,63.88,7.47,19.58
+Recycled PET,Plastic,10.0,36.33,3.0,83.19,6.84,24.11
+Tin Container,Metal,9.0,39.19,1.0,66.62,7.09,27.06
+Compostable PBAT,Bioplastic,8.0,23.43,8.0,73.17,2.77,16.64
+HDPE Recycled,Plastic,9.0,41.46,2.0,85.91,9.05,25.1
+Glass Bottle,Glass,10.0,45.99,1.0,28.36,10.55,30.04
+LDPE Recycled,Plastic,7.0,36.2,3.0,86.07,7.09,19.73
+LDPE Recycled,Plastic,7.0,34.92,2.0,85.63,8.81,19.93
+Tempered Glass Packaging,Glass,10.0,44.87,1.0,28.56,9.38,32.2
+HDPE Recycled,Plastic,8.0,38.21,3.0,92.85,6.56,23.5
+Recycled Paperboard,Paper,7.0,18.28,9.0,92.59,2.47,5.74
+Recycled Paperboard,Paper,5.0,17.41,10.0,86.75,4.93,10.02
+LDPE Recycled,Plastic,8.0,31.85,2.0,87.44,7.47,23.42
+Bamboo Fiber Packaging,Natural Fiber,8.0,25.75,8.0,82.47,3.1,15.98
+Bamboo Fiber Packaging,Natural Fiber,7.0,19.99,9.0,85.21,3.53,15.47
+Reusable Plastic Crate,Plastic,10.0,43.79,2.0,44.47,10.66,33.13
+Corrugated Cardboard,Paper,6.0,20.71,8.0,81.56,4.66,9.33
+Palm Leaf Packaging,Natural Fiber,6.0,14.96,10.0,81.87,1.36,13.06
+Mushroom Packaging,Biopolymer,8.0,24.88,10.0,87.15,2.58,22.07
+Starch-Based Plastic,Bioplastic,7.0,26.02,8.0,78.26,5.07,19.61
+Starch-Based Plastic,Bioplastic,8.0,25.57,8.0,69.56,4.25,18.05
+Compostable PBAT,Bioplastic,8.0,23.23,8.0,69.26,3.99,25.15
+Compostable PBAT,Bioplastic,9.0,28.36,9.0,75.16,4.06,18.85
+Tempered Glass Packaging,Glass,10.0,48.07,1.0,26.52,10.16,32.7
+LDPE Recycled,Plastic,7.0,29.05,1.0,82.78,8.07,26.65
+Tempered Glass Packaging,Glass,9.0,43.43,1.0,31.73,10.19,29.37
+HDPE Recycled,Plastic,8.0,44.46,2.0,89.45,8.75,25.14
+Recycled PET,Plastic,9.0,33.47,3.0,85.07,7.38,26.47
+Compostable PBAT,Bioplastic,8.0,28.8,8.0,71.09,5.1,22.06
+Glass Bottle,Glass,10.0,45.14,1.0,29.51,10.07,24.64
+HDPE Recycled,Plastic,9.0,46.92,2.0,89.5,9.07,28.26
+Steel Packaging,Metal,10.0,51.56,1.0,68.04,9.67,31.4
+Glass Bottle,Glass,9.0,38.99,2.0,31.93,9.89,24.52
+LDPE Recycled,Plastic,6.0,30.36,2.0,89.77,8.06,24.88
+Recycled PET,Plastic,9.0,35.78,3.0,84.27,7.19,22.93
+Tin Container,Metal,8.0,37.2,2.0,74.22,10.13,25.55

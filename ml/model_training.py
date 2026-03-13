@@ -61,8 +61,10 @@ joblib.dump(cost_model, MODELS_DIR / "cost_model.pkl")
 print("\nTraining CO2 Prediction Model...\n")
 
 co2_model = RandomForestRegressor(
-    n_estimators=200,
-    max_depth=10,
+    n_estimators=80,
+    max_depth=4,
+    min_samples_leaf=8,
+    max_features=0.7,
     random_state=42
 )
 

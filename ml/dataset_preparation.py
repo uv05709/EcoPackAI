@@ -50,9 +50,6 @@ features = [
     "biodegradability_score",
     "recyclability_percentage",
     "material_type_encoded",
-    "cost_efficiency_index",
-    "co2_impact_index",
-    "material_suitability_score",
 ]
 
 X = df[features]
