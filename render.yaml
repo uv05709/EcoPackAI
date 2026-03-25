@@ -1,7 +1,7 @@
 services:
   - type: web
     name: ecopackai
-    env: python
+    runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn backend.app:app --bind 0.0.0.0:$PORT
     envVars:
