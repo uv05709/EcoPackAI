@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EcoPackAI Studio</title>
+    <title>EcoPackAI Studio v2</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,15 +11,22 @@
         <section class="hero">
             <div>
                 <p class="eyebrow">AI Framework For Sustainable Packaging</p>
-                <h1>EcoPackAI Recommendation Studio</h1>
+                <h1>EcoPackAI Recommendation Studio v2</h1>
                 <p class="subhead">Compare materials using predicted cost, CO2 impact, and overall eco score from your trained model.</p>
             </div>
             <div class="hero-panel">
                 <label for="apiBaseUrl">API Base URL</label>
                 <input id="apiBaseUrl" value="http://127.0.0.1:5000" />
+
+                <label>Top N Results<input id="topN" type="number" min="1" max="20" value="5" /></label>
+                <label>Filter Material Type (Optional)
+                    <select id="filterMaterialType"><option value="">All Types</option></select>
+                </label>
+
                 <div class="hero-actions">
                     <button id="healthBtn" type="button">Check Backend</button>
                     <button id="datasetRecommendBtn" type="button" class="secondary">Run Dataset Recommendation</button>
+                    <button id="downloadCsvBtn" type="button">Download Top N CSV</button>
                 </div>
                 <p id="healthStatus" class="status">Status: not checked</p>
             </div>
@@ -28,7 +35,7 @@
         <section class="panel">
             <h2>Best Material (From Dataset)</h2>
             <div id="datasetBestCard" class="result-card muted">Run dataset recommendation to view best material.</div>
-            <h3>Top 5 Ranked Materials</h3>
+            <h3>Top Ranked Materials</h3>
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -49,6 +56,47 @@
         </section>
 
         <section class="panel">
+            <h2>BI Dashboard</h2>
+            <p class="muted">Analytics insights based on your trained models and dataset.</p>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-label">CO2 Reduction</span>
+                    <span id="kpiCo2Reduction" class="kpi-value">--</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-label">Cost Savings</span>
+                    <span id="kpiCostSavings" class="kpi-value">--</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-label">Avg Eco Score (Top N)</span>
+                    <span id="kpiEcoScore" class="kpi-value">--</span>
+                </div>
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h4>Material Usage Trends</h4>
+                    <div id="usageChart" class="chart"></div>
+                </div>
+                <div class="chart-card">
+                    <h4>Average Cost by Material Type</h4>
+                    <div id="costChart" class="chart"></div>
+                </div>
+                <div class="chart-card">
+                    <h4>Average CO2 by Material Type</h4>
+                    <div id="co2Chart" class="chart"></div>
+                </div>
+            </div>
+
+            <div class="report-actions">
+                <button id="refreshDashboardBtn" type="button">Refresh Dashboard</button>
+                <button id="exportPdfBtn" type="button" class="secondary">Export PDF Report</button>
+                <button id="exportExcelBtn" type="button">Export Excel Report</button>
+            </div>
+            <p id="dashboardStatus" class="status">Dashboard: not loaded</p>
+        </section>
+
+        <section class="panel">
             <h2>Custom Material Recommendation</h2>
             <form id="recommendForm" class="form-grid">
                 <label>Material Name<input id="materialName" value="Custom Candidate" /></label>
@@ -65,6 +113,7 @@
         </section>
     </main>
 
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

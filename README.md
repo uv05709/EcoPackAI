@@ -7,13 +7,12 @@
 EcoPackAI predicts packaging **cost** and **CO2 impact** for packaging materials and ranks them using an **eco score** to recommend sustainable options.
 
 ## 3. Milestone Status (Current)
-**Milestone 3 completed** with:
-- working ML pipeline
-- working backend API
-- integrated frontend dashboard
-- realistic dataset generation (600+ rows)
-- data quality gate
-- updated model training to reduce leakage/overfitting risk
+**Milestone 4 completed** with:
+- working ML pipeline + backend API
+- integrated frontend recommendation studio
+- BI dashboard with CO2 reduction, cost savings, and usage trend charts
+- sustainability report export (PDF + Excel)
+- deployment-ready configs for Render/Heroku
 
 ## 4. Tech Stack
 | Layer | Technology |
@@ -97,6 +96,8 @@ Open frontend:
 - `GET /metadata/material-types` -> material type list for frontend dropdown
 - `GET /recommend` -> best + top-5 recommendation from dataset
 - `POST /recommend` -> recommendation from custom material input
+- `GET /analytics/summary` -> BI dashboard metrics + chart data
+- `GET /reports/sustainability?format=pdf|excel` -> downloadable sustainability report
 
 Sample payload:
 ```json
@@ -122,6 +123,8 @@ Sample payload:
 - Leakage-prone feature usage reduced in core training/inference flow
 - Backend API integrated with frontend
 - Frontend renders recommendation cards/tables (not raw JSON dump)
+- BI dashboard for analytics insights (CO2 reduction, cost savings, trends)
+- PDF + Excel sustainability report export
 - Milestone 3 PPT created in `report/`
 
 ## 10. Current Limitations
@@ -138,5 +141,21 @@ Sample payload:
 - Add Docker + CI workflow
 - Add model versioning and retraining logs
 
-## 12. License
+## 12. Deployment (Render/Heroku)
+The repo includes deployment-ready configuration:
+- `Procfile` for Heroku (`gunicorn backend.app:app`)
+- `render.yaml` for Render
+
+### Render
+1. Create a new Web Service and connect the repo.
+2. Build command: `pip install -r requirements.txt`
+3. Start command: `gunicorn backend.app:app`
+4. Add env vars from `.env` (DB_* if using PostgreSQL).
+
+### Heroku
+1. `heroku create`
+2. `git push heroku main`
+3. `heroku config:set` your env vars (DB_* if using PostgreSQL)
+
+## 13. License
 No license file currently included. Add a `LICENSE` file (MIT/Apache-2.0 recommended).
