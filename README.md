@@ -147,9 +147,9 @@ The repo includes deployment-ready configuration:
 - `render.yaml` for Render
 
 ### Render
-1. Create a new Web Service and connect the repo.
+1. Create a new Web Service and connect the repo (or use Blueprint to auto-read `render.yaml`).
 2. Build command: `pip install -r requirements.txt`
-3. Start command: `gunicorn backend.app:app`
+3. Start command: `gunicorn backend.app:app --bind 0.0.0.0:$PORT`
 4. Add env vars from `.env` (DB_* if using PostgreSQL).
 
 ### Heroku
