@@ -223,6 +223,19 @@ byId("downloadCsvBtn").addEventListener("click", ()=>{
     URL.revokeObjectURL(url);
 });
 
+function initBaseUrl() {
+    const input = byId("apiBaseUrl");
+    const origin = window.location.origin;
+    if (!input.value) {
+        if (origin && origin !== "null") {
+            input.value = origin;
+        } else {
+            input.value = "http://127.0.0.1:5000";
+        }
+    }
+}
+
+initBaseUrl();
 loadMaterialTypes();
 loadFilterMaterialTypes();
 loadDashboard();

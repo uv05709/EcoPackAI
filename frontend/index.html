@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EcoPackAI Studio v2</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/frontend/style.css" />
 </head>
 <body>
     <main class="app-shell">
@@ -16,7 +16,7 @@
             </div>
             <div class="hero-panel">
                 <label for="apiBaseUrl">API Base URL</label>
-                <input id="apiBaseUrl" value="http://127.0.0.1:5000" />
+                <input id="apiBaseUrl" value="" />
 
                 <label>Top N Results<input id="topN" type="number" min="1" max="20" value="5" /></label>
                 <label>Filter Material Type (Optional)
@@ -114,6 +114,6 @@
     </main>
 
     <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
-    <script src="script.js"></script>
+    <script src="/frontend/script.js"></script>
 </body>
 </html>

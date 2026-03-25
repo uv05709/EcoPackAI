@@ -7,7 +7,7 @@ import io
 
 import joblib
 import pandas as pd
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, send_from_directory
 from sklearn.preprocessing import LabelEncoder
 import logging
 from fpdf import FPDF
@@ -19,6 +19,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = BASE_DIR.parent
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 FEATURE_COLUMNS = [
     "strength_rating",
@@ -371,7 +372,14 @@ except Exception as exc:
     STARTUP_ERROR = str(exc)
     logging.error(f"Startup failed: {STARTUP_ERROR}")
 
-# ================== Routes ==================
+@app.get("/")
+def home() -> Any:
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+@app.get("/frontend/<path:filename>")
+def frontend_assets(filename: str) -> Any:
+    return send_from_directory(FRONTEND_DIR, filename)
+
 @app.get("/health")
 def health() -> Any:
     if STARTUP_ERROR:
