@@ -376,6 +376,14 @@ except Exception as exc:
 def home() -> Any:
     return send_from_directory(FRONTEND_DIR, "index.html")
 
+@app.get("/style.css")
+def frontend_css() -> Any:
+    return send_from_directory(FRONTEND_DIR, "style.css")
+
+@app.get("/script.js")
+def frontend_js() -> Any:
+    return send_from_directory(FRONTEND_DIR, "script.js")
+
 @app.get("/frontend/<path:filename>")
 def frontend_assets(filename: str) -> Any:
     return send_from_directory(FRONTEND_DIR, filename)

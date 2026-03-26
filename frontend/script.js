@@ -223,19 +223,31 @@ byId("downloadCsvBtn").addEventListener("click", ()=>{
     URL.revokeObjectURL(url);
 });
 
-function initBaseUrl() {
+async function initBaseUrl() {
     const input = byId("apiBaseUrl");
+    if (input.value) return;
+
     const origin = window.location.origin;
-    if (!input.value) {
-        if (origin && origin !== "null") {
-            input.value = origin;
-        } else {
-            input.value = "http://127.0.0.1:5000";
-        }
+    if (!origin || origin === "null") {
+        input.value = "http://127.0.0.1:5000";
+        return;
     }
+
+    try {
+        const response = await fetch(`${origin}/health`, { method: "GET" });
+        if (response.ok) {
+            input.value = origin;
+            return;
+        }
+    } catch (err) {
+        // ignore and fall back
+    }
+
+    input.value = "http://127.0.0.1:5000";
 }
 
-initBaseUrl();
-loadMaterialTypes();
-loadFilterMaterialTypes();
-loadDashboard();
+initBaseUrl().then(()=>{
+    loadMaterialTypes();
+    loadFilterMaterialTypes();
+    loadDashboard();
+});
