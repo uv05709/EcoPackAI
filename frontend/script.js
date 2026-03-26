@@ -1,19 +1,167 @@
-const byId = id => document.getElementById(id);
+const byId = (id) => document.getElementById(id);
 let latestTopRanked = [];
 
-function getBaseUrl() { return byId("apiBaseUrl").value.trim().replace(/\/$/, ""); }
-function formatNumber(value, digits = 2) { return Number(value).toFixed(digits); }
+function getBaseUrl() {
+    return byId("apiBaseUrl").value.trim().replace(/\/$/, "");
+}
+
+function formatNumber(value, digits = 2) {
+    const num = Number(value);
+    if (Number.isNaN(num)) return "--";
+    return num.toFixed(digits);
+}
+
+function formatCurrency(value) {
+    const num = Number(value);
+    if (Number.isNaN(num)) return "--";
+    return `₹ ${num.toFixed(2)}`;
+}
+
+function formatCo2(value) {
+    const num = Number(value);
+    if (Number.isNaN(num)) return "--";
+    return `${num.toFixed(2)} kg`;
+}
+
+function getScoreClass(score) {
+    const num = Number(score);
+    if (num >= 8) return "score-high";
+    if (num >= 5) return "score-medium";
+    return "score-low";
+}
+
+function getEcoSummary(score) {
+    const num = Number(score);
+    if (num >= 8) return "Excellent sustainability potential";
+    if (num >= 5) return "Balanced eco-performance";
+    return "Needs improvement in sustainability";
+}
+
+function getCostSummary(cost) {
+    const num = Number(cost);
+    if (num <= 10) return "Low predicted cost";
+    if (num <= 25) return "Moderate predicted cost";
+    return "Higher predicted cost";
+}
+
+function getCo2Summary(co2) {
+    const num = Number(co2);
+    if (num <= 5) return "Lower estimated carbon footprint";
+    if (num <= 15) return "Moderate carbon footprint";
+    return "Higher estimated carbon footprint";
+}
+
+function getRecommendationText(material) {
+    return `${material.material_name} is recommended because it achieves a strong balance between sustainability score, estimated cost, and predicted CO2 impact for the current selection.`;
+}
+
+function updateStatusElement(elementId, message, state = "neutral") {
+    const el = byId(elementId);
+    el.className = "status-pill";
+
+    if (state === "success") {
+        el.classList.add("status-success");
+    } else if (state === "danger") {
+        el.classList.add("status-danger");
+    } else {
+        el.classList.add("status-neutral");
+    }
+
+    el.innerHTML = `
+        <i class="bi bi-circle-fill"></i>
+        <span>${message}</span>
+    `;
+}
+
+function renderLoading(containerId, message = "Loading...") {
+    byId(containerId).innerHTML = `
+        <div class="spinner-wrap">
+            <span class="spinner"></span>
+            <span>${message}</span>
+        </div>
+    `;
+}
+
+function renderEmptyCard(containerId, iconClass, title, text) {
+    byId(containerId).innerHTML = `
+        <div class="empty-state-inner">
+            <i class="${iconClass}"></i>
+            <h4>${title}</h4>
+            <p>${text}</p>
+        </div>
+    `;
+}
 
 function renderMaterialCard(containerId, material, title = "Recommended Material") {
     const target = byId(containerId);
-    if (!material) { target.innerHTML = `<p class="muted">No material available.</p>`; return; }
+
+    if (!material) {
+        renderEmptyCard(
+            containerId,
+            "bi bi-info-circle",
+            "No material available",
+            "The system did not return a material for this request."
+        );
+        return;
+    }
+
     target.innerHTML = `
-        <h4>${title}: ${material.material_name}</h4>
-        <p><strong>Type:</strong> ${material.material_type}</p>
-        <div class="metrics">
-            <div class="metric"><span class="metric-label">Eco Score</span><span class="metric-value">${formatNumber(material.eco_score,3)}</span></div>
-            <div class="metric"><span class="metric-label">Predicted Cost</span><span class="metric-value">${formatNumber(material.predicted_cost,2)}</span></div>
-            <div class="metric"><span class="metric-label">Predicted CO2</span><span class="metric-value">${formatNumber(material.predicted_co2,2)}</span></div>
+        <div class="result-header">
+            <div class="result-title">
+                <div class="inline-badges">
+                    <span class="rank-badge">
+                        <i class="bi bi-trophy-fill"></i>
+                        ${title}
+                    </span>
+                    <span class="type-badge">
+                        <i class="bi bi-tag-fill"></i>
+                        ${material.material_type}
+                    </span>
+                </div>
+                <h3>${material.material_name}</h3>
+                <p>AI-selected material based on current model scoring and sustainability ranking.</p>
+            </div>
+
+            <div>
+                <span class="score-badge">
+                    <i class="bi bi-stars"></i>
+                    Eco Score: ${formatNumber(material.eco_score, 3)}
+                </span>
+            </div>
+        </div>
+
+        <div class="result-grid">
+            <div class="metric-box">
+                <div class="metric-top">
+                    <span class="metric-label">Eco Score</span>
+                    <i class="bi bi-leaf-fill"></i>
+                </div>
+                <span class="metric-value">${formatNumber(material.eco_score, 3)}</span>
+                <span class="metric-note">${getEcoSummary(material.eco_score)}</span>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-top">
+                    <span class="metric-label">Predicted Cost</span>
+                    <i class="bi bi-cash-coin"></i>
+                </div>
+                <span class="metric-value">${formatCurrency(material.predicted_cost)}</span>
+                <span class="metric-note">${getCostSummary(material.predicted_cost)}</span>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-top">
+                    <span class="metric-label">Predicted CO2</span>
+                    <i class="bi bi-cloud-haze2-fill"></i>
+                </div>
+                <span class="metric-value">${formatCo2(material.predicted_co2)}</span>
+                <span class="metric-note">${getCo2Summary(material.predicted_co2)}</span>
+            </div>
+        </div>
+
+        <div class="recommendation-note">
+            <strong>Why this material is recommended:</strong><br />
+            ${getRecommendationText(material)}
         </div>
     `;
 }
@@ -21,47 +169,81 @@ function renderMaterialCard(containerId, material, title = "Recommended Material
 function renderTopTable(bodyId, rows) {
     latestTopRanked = rows || [];
     const body = byId(bodyId);
-    if (!rows || rows.length === 0) { body.innerHTML = `<tr><td colspan="6" class="empty">No ranked materials.</td></tr>`; return; }
 
-    body.innerHTML = rows.map((row,index)=>`
-        <tr>
-            <td>${index+1}</td>
-            <td>${row.material_name}</td>
-            <td>${row.material_type}</td>
-            <td>${formatNumber(row.eco_score,3)}</td>
-            <td>${formatNumber(row.predicted_cost,2)}</td>
-            <td>${formatNumber(row.predicted_co2,2)}</td>
-        </tr>`).join("");
+    if (!rows || rows.length === 0) {
+        body.innerHTML = `<tr><td colspan="6" class="empty-row">No ranked materials found.</td></tr>`;
+        return;
+    }
+
+    body.innerHTML = rows
+        .map((row, index) => {
+            const scoreClass = getScoreClass(row.eco_score);
+            return `
+                <tr>
+                    <td class="rank-cell">#${index + 1}</td>
+                    <td class="material-name">${row.material_name}</td>
+                    <td><span class="table-type-badge">${row.material_type}</span></td>
+                    <td><span class="score-pill ${scoreClass}">${formatNumber(row.eco_score, 3)}</span></td>
+                    <td>${formatCurrency(row.predicted_cost)}</td>
+                    <td>${formatCo2(row.predicted_co2)}</td>
+                </tr>
+            `;
+        })
+        .join("");
 }
 
-async function callApi(path, options={}) {
-    const response = await fetch(`${getBaseUrl()}${path}`, { headers: { "Content-Type": "application/json" }, ...options });
-    const data = await response.json().catch(()=>({}));
-    if(!response.ok) throw new Error(data.error || data.message || `Request failed (${response.status})`);
+async function callApi(path, options = {}) {
+    const response = await fetch(`${getBaseUrl()}${path}`, {
+        headers: {
+            "Content-Type": "application/json"
+        },
+        ...options
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(data.error || data.message || `Request failed (${response.status})`);
+    }
+
     return data;
 }
 
-function setStatus(message, ok=false) {
-    const status = byId("healthStatus");
-    status.textContent = message;
-    status.style.color = ok ? "#1d6a45" : "#8d2b2b";
-}
-
-function showLoading(containerId) { byId(containerId).innerHTML = '<div class="spinner"></div>'; }
-
-function setDashboardStatus(message, ok=false) {
-    const status = byId("dashboardStatus");
-    status.textContent = message;
-    status.style.color = ok ? "#1d6a45" : "#8d2b2b";
+function buildCommonLayout(yTitle) {
+    return {
+        margin: { t: 14, l: 48, r: 18, b: 65 },
+        paper_bgcolor: "rgba(0,0,0,0)",
+        plot_bgcolor: "rgba(0,0,0,0)",
+        xaxis: {
+            tickangle: -25,
+            automargin: true,
+            showgrid: false,
+            zeroline: false
+        },
+        yaxis: {
+            title: yTitle,
+            gridcolor: "#e7efe9",
+            zeroline: false
+        },
+        font: {
+            family: "Poppins, sans-serif",
+            color: "#355644"
+        }
+    };
 }
 
 function renderChart(targetId, data, layout) {
     const target = byId(targetId);
+
     if (!window.Plotly) {
-        target.innerHTML = "<p class=\"muted\">Plotly not loaded.</p>";
+        target.innerHTML = `<p class="text-muted">Plotly not loaded.</p>`;
         return;
     }
-    Plotly.react(target, data, layout, { displayModeBar: false, responsive: true });
+
+    Plotly.react(target, data, layout, {
+        displayModeBar: false,
+        responsive: true
+    });
 }
 
 function renderDashboard(summary) {
@@ -69,57 +251,64 @@ function renderDashboard(summary) {
     byId("kpiCostSavings").textContent = `${summary.savings.cost_savings_pct}%`;
     byId("kpiEcoScore").textContent = summary.top_summary.avg_eco_score;
 
-    const labels = summary.usage_trends.labels;
-    const usageData = [{
-        x: labels,
-        y: summary.usage_trends.counts,
-        type: "bar",
-        marker: { color: "#6aa27a" }
-    }];
-    const costData = [{
-        x: labels,
-        y: summary.usage_trends.avg_cost,
-        type: "bar",
-        marker: { color: "#a5612a" }
-    }];
-    const co2Data = [{
-        x: labels,
-        y: summary.usage_trends.avg_co2,
-        type: "bar",
-        marker: { color: "#3a6b55" }
-    }];
+    const labels = summary.usage_trends.labels || [];
 
-    const baseLayout = {
-        margin: { t: 20, l: 40, r: 10, b: 60 },
-        paper_bgcolor: "rgba(0,0,0,0)",
-        plot_bgcolor: "rgba(0,0,0,0)",
-        xaxis: { tickangle: -30, automargin: true },
-        yaxis: { gridcolor: "#e3efe3" }
-    };
+    const usageData = [
+        {
+            x: labels,
+            y: summary.usage_trends.counts || [],
+            type: "bar",
+            marker: { color: "#5e966f" },
+            hovertemplate: "%{x}<br>Count: %{y}<extra></extra>"
+        }
+    ];
 
-    renderChart("usageChart", usageData, { ...baseLayout, yaxis: { ...baseLayout.yaxis, title: "Count" } });
-    renderChart("costChart", costData, { ...baseLayout, yaxis: { ...baseLayout.yaxis, title: "Avg Cost" } });
-    renderChart("co2Chart", co2Data, { ...baseLayout, yaxis: { ...baseLayout.yaxis, title: "Avg CO2" } });
+    const costData = [
+        {
+            x: labels,
+            y: summary.usage_trends.avg_cost || [],
+            type: "bar",
+            marker: { color: "#ba7a43" },
+            hovertemplate: "%{x}<br>Avg Cost: %{y}<extra></extra>"
+        }
+    ];
+
+    const co2Data = [
+        {
+            x: labels,
+            y: summary.usage_trends.avg_co2 || [],
+            type: "bar",
+            marker: { color: "#2f6b52" },
+            hovertemplate: "%{x}<br>Avg CO2: %{y}<extra></extra>"
+        }
+    ];
+
+    renderChart("usageChart", usageData, buildCommonLayout("Count"));
+    renderChart("costChart", costData, buildCommonLayout("Avg Cost"));
+    renderChart("co2Chart", co2Data, buildCommonLayout("Avg CO2"));
 }
 
 async function loadDashboard() {
-    setDashboardStatus("Dashboard: loading...", true);
-    const top_n = Number(byId("topN").value) || 5;
-    const filter_type = byId("filterMaterialType").value || null;
-    const query = `/analytics/summary?top_n=${top_n}${filter_type ? "&material_type=" + encodeURIComponent(filter_type) : ""}`;
+    updateStatusElement("dashboardStatus", "Dashboard: loading...", "neutral");
+
+    const topN = Number(byId("topN").value) || 5;
+    const filterType = byId("filterMaterialType").value || null;
+    const query = `/analytics/summary?top_n=${topN}${filterType ? "&material_type=" + encodeURIComponent(filterType) : ""}`;
+
     try {
         const summary = await callApi(query);
         renderDashboard(summary);
-        setDashboardStatus(`Dashboard: updated (Top ${summary.top_summary.top_n})`, true);
+        updateStatusElement("dashboardStatus", `Dashboard: updated (Top ${summary.top_summary.top_n})`, "success");
     } catch (error) {
-        setDashboardStatus(`Dashboard: failed (${error.message})`, false);
+        updateStatusElement("dashboardStatus", `Dashboard: failed (${error.message})`, "danger");
     }
 }
 
 function downloadReport(format) {
-    const top_n = Number(byId("topN").value) || 5;
-    const filter_type = byId("filterMaterialType").value || null;
-    const query = `/reports/sustainability?format=${format}&top_n=${top_n}${filter_type ? "&material_type=" + encodeURIComponent(filter_type) : ""}`;
+    const topN = Number(byId("topN").value) || 5;
+    const filterType = byId("filterMaterialType").value || null;
+    const query = `/reports/sustainability?format=${format}&top_n=${topN}${filterType ? "&material_type=" + encodeURIComponent(filterType) : ""}`;
+
     const link = document.createElement("a");
     link.href = `${getBaseUrl()}${query}`;
     link.target = "_blank";
@@ -129,105 +318,161 @@ function downloadReport(format) {
 async function loadMaterialTypes() {
     try {
         const data = await callApi("/metadata/material-types");
-        const select = byId("materialType");
-        select.innerHTML = "";
-        data.material_types.forEach(type=>{
+
+        const materialTypeSelect = byId("materialType");
+        materialTypeSelect.innerHTML = "";
+
+        data.material_types.forEach((type) => {
             const option = document.createElement("option");
             option.value = type;
             option.textContent = type;
-            select.appendChild(option);
+            materialTypeSelect.appendChild(option);
         });
-        setStatus(`Status: connected (${data.count} material types loaded)`, true);
-    } catch(error) {
-        setStatus(`Status: failed to load material types (${error.message})`, false);
+
+        updateStatusElement("healthStatus", `Status: connected (${data.count} material types loaded)`, "success");
+    } catch (error) {
+        updateStatusElement("healthStatus", `Status: failed to load material types (${error.message})`, "danger");
     }
 }
 
 async function loadFilterMaterialTypes() {
     try {
         const data = await callApi("/metadata/material-types");
+
         const select = byId("filterMaterialType");
-        select.innerHTML = '<option value="">All Types</option>';
-        data.material_types.forEach(type=>{
+        select.innerHTML = `<option value="">All Types</option>`;
+
+        data.material_types.forEach((type) => {
             const option = document.createElement("option");
             option.value = type;
             option.textContent = type;
             select.appendChild(option);
         });
-    } catch(err) { console.warn("Failed to load filter types",err); }
+    } catch (error) {
+        console.warn("Failed to load filter types", error);
+    }
 }
 
 async function checkHealth() {
     try {
         const health = await callApi("/health");
-        setStatus(`Status: backend healthy, dataset rows: ${health.dataset_rows}`, true);
-    } catch(error) { setStatus(`Status: backend unhealthy (${error.message})`, false); }
+        updateStatusElement(
+            "healthStatus",
+            `Status: backend healthy, dataset rows: ${health.dataset_rows}`,
+            "success"
+        );
+    } catch (error) {
+        updateStatusElement(
+            "healthStatus",
+            `Status: backend unhealthy (${error.message})`,
+            "danger"
+        );
+    }
 }
 
 async function datasetRecommendation() {
-    showLoading("datasetBestCard");
+    renderLoading("datasetBestCard", "Generating best dataset material...");
     renderTopTable("datasetTopBody", []);
+
     try {
-        const top_n = Number(byId("topN").value) || 5;
-        const filter_type = byId("filterMaterialType").value || null;
-        const query = `/recommend?top_n=${top_n}${filter_type ? "&material_type=" + filter_type : ""}`;
+        const topN = Number(byId("topN").value) || 5;
+        const filterType = byId("filterMaterialType").value || null;
+
+        const query = `/recommend?top_n=${topN}${filterType ? "&material_type=" + encodeURIComponent(filterType) : ""}`;
         const data = await callApi(query);
+
         renderMaterialCard("datasetBestCard", data.best_material, "Best Dataset Material");
         renderTopTable("datasetTopBody", data.top_ranked || []);
-    } catch(error) {
-        byId("datasetBestCard").innerHTML = `<p class="muted">Dataset recommendation failed: ${error.message}</p>`;
+    } catch (error) {
+        renderEmptyCard(
+            "datasetBestCard",
+            "bi bi-exclamation-circle",
+            "Dataset recommendation failed",
+            error.message
+        );
         renderTopTable("datasetTopBody", []);
     }
 }
 
 async function customRecommendation(event) {
     event.preventDefault();
+
     const payload = {
         top_n: Number(byId("topN").value) || null,
-        filter_type: byId("filterMaterialType").value || null,
-        materials:[{
-            material_name: byId("materialName").value.trim(),
-            material_type: byId("materialType").value,
-            strength_rating: Number(byId("strengthRating").value),
-            weight_capacity: Number(byId("weightCapacity").value),
-            biodegradability_score: Number(byId("biodegradabilityScore").value),
-            recyclability_percentage: Number(byId("recyclabilityPercentage").value),
-        }]
+        material_type: byId("filterMaterialType").value || null,
+        materials: [
+            {
+                material_name: byId("materialName").value.trim(),
+                material_type: byId("materialType").value,
+                strength_rating: Number(byId("strengthRating").value),
+                weight_capacity: Number(byId("weightCapacity").value),
+                biodegradability_score: Number(byId("biodegradabilityScore").value),
+                recyclability_percentage: Number(byId("recyclabilityPercentage").value)
+            }
+        ]
     };
-    showLoading("customBestCard");
+
+    renderLoading("customBestCard", "Scoring custom material...");
+
     try {
-        const data = await callApi("/recommend",{ method:"POST", body:JSON.stringify(payload) });
+        const data = await callApi("/recommend", {
+            method: "POST",
+            body: JSON.stringify(payload)
+        });
+
         renderMaterialCard("customBestCard", data.best_material, "Best Custom Material");
-    } catch(error) {
-        byId("customBestCard").innerHTML = `<p class="muted">Custom recommendation failed: ${error.message}</p>`;
+    } catch (error) {
+        renderEmptyCard(
+            "customBestCard",
+            "bi bi-x-octagon",
+            "Custom recommendation failed",
+            error.message
+        );
     }
 }
 
-byId("healthBtn").addEventListener("click", checkHealth);
-byId("datasetRecommendBtn").addEventListener("click", datasetRecommendation);
-byId("recommendForm").addEventListener("submit", customRecommendation);
-byId("apiBaseUrl").addEventListener("change", loadMaterialTypes);
-byId("refreshDashboardBtn").addEventListener("click", loadDashboard);
-byId("exportPdfBtn").addEventListener("click", ()=>downloadReport("pdf"));
-byId("exportExcelBtn").addEventListener("click", ()=>downloadReport("excel"));
-byId("downloadCsvBtn").addEventListener("click", ()=>{
-    if(!latestTopRanked.length) return alert("No data to export");
-    const csvContent = [["#", "Material Name","Type","Eco Score","Predicted Cost","Predicted CO2"], ...latestTopRanked.map((row,i)=>[i+1,row.material_name,row.material_type,row.eco_score,row.predicted_cost,row.predicted_co2])]
-        .map(e=>e.join(",")).join("\n");
-    const blob = new Blob([csvContent],{type:"text/csv"});
+function exportCsv() {
+    if (!latestTopRanked.length) {
+        alert("No data to export");
+        return;
+    }
+
+    const csvRows = [
+        ["#", "Material Name", "Type", "Eco Score", "Predicted Cost", "Predicted CO2"],
+        ...latestTopRanked.map((row, index) => [
+            index + 1,
+            row.material_name,
+            row.material_type,
+            row.eco_score,
+            row.predicted_cost,
+            row.predicted_co2
+        ])
+    ];
+
+    const csvContent = csvRows
+        .map((row) =>
+            row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")
+        )
+        .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "top_materials.csv";
-    a.click();
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "EcoPackAI_Top_Materials.csv";
+    link.click();
+
     URL.revokeObjectURL(url);
-});
+}
 
 async function initBaseUrl() {
     const input = byId("apiBaseUrl");
+
     if (input.value) return;
 
     const origin = window.location.origin;
+
     if (!origin || origin === "null") {
         input.value = "http://127.0.0.1:5000";
         return;
@@ -239,15 +484,39 @@ async function initBaseUrl() {
             input.value = origin;
             return;
         }
-    } catch (err) {
-        // ignore and fall back
+    } catch (error) {
+        // ignore
     }
 
     input.value = "http://127.0.0.1:5000";
 }
 
-initBaseUrl().then(()=>{
-    loadMaterialTypes();
-    loadFilterMaterialTypes();
-    loadDashboard();
-});
+function attachEvents() {
+    byId("healthBtn").addEventListener("click", checkHealth);
+    byId("datasetRecommendBtn").addEventListener("click", datasetRecommendation);
+    byId("heroRecommendBtn").addEventListener("click", datasetRecommendation);
+    byId("recommendForm").addEventListener("submit", customRecommendation);
+
+    byId("apiBaseUrl").addEventListener("change", async () => {
+        await loadMaterialTypes();
+        await loadFilterMaterialTypes();
+        await loadDashboard();
+    });
+
+    byId("refreshDashboardBtn").addEventListener("click", loadDashboard);
+    byId("exportPdfBtn").addEventListener("click", () => downloadReport("pdf"));
+    byId("exportExcelBtn").addEventListener("click", () => downloadReport("excel"));
+    byId("downloadCsvBtn").addEventListener("click", exportCsv);
+    byId("topN").addEventListener("change", loadDashboard);
+    byId("filterMaterialType").addEventListener("change", loadDashboard);
+}
+
+async function init() {
+    attachEvents();
+    await initBaseUrl();
+    await loadMaterialTypes();
+    await loadFilterMaterialTypes();
+    await loadDashboard();
+}
+
+init();

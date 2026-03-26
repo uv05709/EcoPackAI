@@ -3,117 +3,556 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EcoPackAI Studio v2</title>
+    <title>EcoPackAI | Sustainable Packaging Intelligence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <main class="app-shell">
-        <section class="hero">
-            <div>
-                <p class="eyebrow">AI Framework For Sustainable Packaging</p>
-                <h1>EcoPackAI Recommendation Studio v2</h1>
-                <p class="subhead">Compare materials using predicted cost, CO2 impact, and overall eco score from your trained model.</p>
+    <nav class="navbar navbar-expand-lg navbar-dark ec-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#top">
+                <span class="brand-mark"><i class="bi bi-box-seam"></i></span>
+                <span>EcoPackAI</span>
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNav"
+                aria-controls="mainNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto gap-lg-2">
+                    <li class="nav-item"><a class="nav-link" href="#overview">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#workflow">Workflow</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#recommendation">Recommendation</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#custom">Custom Input</a></li>
+                </ul>
             </div>
-            <div class="hero-panel">
-                <label for="apiBaseUrl">API Base URL</label>
-                <input id="apiBaseUrl" value="" />
+        </div>
+    </nav>
 
-                <label>Top N Results<input id="topN" type="number" min="1" max="20" value="5" /></label>
-                <label>Filter Material Type (Optional)
-                    <select id="filterMaterialType"><option value="">All Types</option></select>
-                </label>
+    <main id="top" class="app-shell">
+        <div class="container py-4 py-lg-5">
+            <!-- HERO -->
+            <section class="hero-section mb-4 mb-lg-5" id="overview">
+                <div class="row g-4 align-items-stretch">
+                    <div class="col-lg-7">
+                        <div class="hero-card h-100">
+                            <span class="hero-pill">
+                                <i class="bi bi-stars"></i>
+                                AI Framework for Sustainable Packaging
+                            </span>
 
-                <div class="hero-actions">
-                    <button id="healthBtn" type="button">Check Backend</button>
-                    <button id="datasetRecommendBtn" type="button" class="secondary">Run Dataset Recommendation</button>
-                    <button id="downloadCsvBtn" type="button">Download Top N CSV</button>
+                            <h1 class="hero-title">
+                                EcoPackAI helps businesses choose
+                                <span>smarter, greener, and cost-efficient</span>
+                                packaging materials.
+                            </h1>
+
+                            <p class="hero-subtitle">
+                                Analyze packaging materials using AI-based recommendation,
+                                predicted cost, predicted CO2 footprint, recyclability, and
+                                sustainability scoring in one integrated dashboard.
+                            </p>
+
+                            <div class="hero-feature-grid">
+                                <div class="hero-feature">
+                                    <i class="bi bi-cpu-fill"></i>
+                                    <div>
+                                        <strong>ML Recommendation Engine</strong>
+                                        <small>Ranks materials using model predictions and eco score</small>
+                                    </div>
+                                </div>
+                                <div class="hero-feature">
+                                    <i class="bi bi-bar-chart-line-fill"></i>
+                                    <div>
+                                        <strong>BI Analytics Dashboard</strong>
+                                        <small>Tracks cost savings, CO2 reduction, and usage trends</small>
+                                    </div>
+                                </div>
+                                <div class="hero-feature">
+                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    <div>
+                                        <strong>PDF & Excel Reports</strong>
+                                        <small>Export sustainability insights directly from the platform</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hero-actions">
+                                <button id="heroRecommendBtn" class="btn ec-btn-primary btn-lg">
+                                    <i class="bi bi-lightning-charge-fill"></i>
+                                    Run Recommendation
+                                </button>
+                                <a href="#dashboard" class="btn ec-btn-outline btn-lg">
+                                    <i class="bi bi-grid-1x2-fill"></i>
+                                    View Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="side-control-card h-100">
+                            <div class="side-heading">
+                                <p class="section-kicker mb-2">System Access</p>
+                                <h3>Backend Connection Panel</h3>
+                                <p class="text-muted mb-0">
+                                    Connect to your Flask backend, validate APIs, run recommendations,
+                                    and export reports.
+                                </p>
+                            </div>
+
+                            <div class="mt-3">
+                                <label for="apiBaseUrl" class="form-label">API Base URL</label>
+                                <input
+                                    id="apiBaseUrl"
+                                    class="form-control ec-input"
+                                    value=""
+                                    placeholder="http://127.0.0.1:5000"
+                                />
+                            </div>
+
+                            <div class="row g-3 mt-1">
+                                <div class="col-sm-6">
+                                    <label for="topN" class="form-label">Top N Results</label>
+                                    <input
+                                        id="topN"
+                                        class="form-control ec-input"
+                                        type="number"
+                                        min="1"
+                                        max="20"
+                                        value="5"
+                                    />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="filterMaterialType" class="form-label">Material Type Filter</label>
+                                    <select id="filterMaterialType" class="form-select ec-input">
+                                        <option value="">All Types</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-3">
+                                <button id="healthBtn" type="button" class="btn ec-btn-dark">
+                                    <i class="bi bi-activity"></i>
+                                    Check Backend
+                                </button>
+                                <button id="datasetRecommendBtn" type="button" class="btn ec-btn-secondary">
+                                    <i class="bi bi-magic"></i>
+                                    Run Dataset Recommendation
+                                </button>
+                                <button id="downloadCsvBtn" type="button" class="btn ec-btn-light">
+                                    <i class="bi bi-download"></i>
+                                    Download Top N CSV
+                                </button>
+                            </div>
+
+                            <div id="healthStatus" class="status-pill status-neutral mt-3">
+                                <i class="bi bi-circle-fill"></i>
+                                <span>Status: not checked</span>
+                            </div>
+
+                            <div class="mini-stats mt-4">
+                                <div class="mini-stat-card">
+                                    <span class="mini-stat-label">Project Focus</span>
+                                    <span class="mini-stat-value">Eco-Friendly Material Optimization</span>
+                                </div>
+                                <div class="mini-stat-card">
+                                    <span class="mini-stat-label">Frontend Stack</span>
+                                    <span class="mini-stat-value">HTML • CSS • Bootstrap • JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p id="healthStatus" class="status">Status: not checked</p>
-            </div>
-        </section>
+            </section>
 
-        <section class="panel">
-            <h2>Best Material (From Dataset)</h2>
-            <div id="datasetBestCard" class="result-card muted">Run dataset recommendation to view best material.</div>
-            <h3>Top Ranked Materials</h3>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Material</th>
-                            <th>Type</th>
-                            <th>Eco Score</th>
-                            <th>Predicted Cost</th>
-                            <th>Predicted CO2</th>
-                        </tr>
-                    </thead>
-                    <tbody id="datasetTopBody">
-                        <tr><td colspan="6" class="empty">No recommendation yet.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            <!-- PROJECT VALUE -->
+            <section class="mb-4 mb-lg-5">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="info-card">
+                            <div class="info-icon"><i class="bi bi-globe2"></i></div>
+                            <h5>Sustainability Goal</h5>
+                            <p>
+                                Reduce environmental impact by recommending packaging materials
+                                with better biodegradability, recyclability, and lower CO2 footprint.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-card">
+                            <div class="info-icon"><i class="bi bi-cash-stack"></i></div>
+                            <h5>Cost Optimization</h5>
+                            <p>
+                                Use ML predictions to estimate cost efficiency and compare
+                                multiple material choices before final packaging selection.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-card">
+                            <div class="info-icon"><i class="bi bi-diagram-3-fill"></i></div>
+                            <h5>Integrated Platform</h5>
+                            <p>
+                                Combine Flask APIs, ML models, BI analytics, exports,
+                                and frontend interaction in one deployable product.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <section class="panel">
-            <h2>BI Dashboard</h2>
-            <p class="muted">Analytics insights based on your trained models and dataset.</p>
-            <div class="kpi-grid">
-                <div class="kpi-card">
-                    <span class="kpi-label">CO2 Reduction</span>
-                    <span id="kpiCo2Reduction" class="kpi-value">--</span>
+            <!-- WORKFLOW -->
+            <section id="workflow" class="mb-4 mb-lg-5">
+                <div class="section-header">
+                    <p class="section-kicker">How It Works</p>
+                    <h2 class="section-title">System Workflow of EcoPackAI</h2>
+                    <p class="section-subtitle">
+                        A complete pipeline from user input to AI recommendation, analytics,
+                        and sustainability reporting.
+                    </p>
                 </div>
-                <div class="kpi-card">
-                    <span class="kpi-label">Cost Savings</span>
-                    <span id="kpiCostSavings" class="kpi-value">--</span>
-                </div>
-                <div class="kpi-card">
-                    <span class="kpi-label">Avg Eco Score (Top N)</span>
-                    <span id="kpiEcoScore" class="kpi-value">--</span>
-                </div>
-            </div>
 
-            <div class="chart-grid">
-                <div class="chart-card">
-                    <h4>Material Usage Trends</h4>
-                    <div id="usageChart" class="chart"></div>
+                <div class="workflow-grid">
+                    <div class="workflow-step">
+                        <span class="workflow-number">01</span>
+                        <h5>User Inputs</h5>
+                        <p>Material attributes and filters are entered from the frontend UI.</p>
+                    </div>
+                    <div class="workflow-step">
+                        <span class="workflow-number">02</span>
+                        <h5>Flask API Processing</h5>
+                        <p>REST endpoints validate data and pass it to the prediction pipeline.</p>
+                    </div>
+                    <div class="workflow-step">
+                        <span class="workflow-number">03</span>
+                        <h5>ML Prediction</h5>
+                        <p>Cost and CO2 predictions are generated using trained models.</p>
+                    </div>
+                    <div class="workflow-step">
+                        <span class="workflow-number">04</span>
+                        <h5>Eco Score Ranking</h5>
+                        <p>Materials are scored and ranked to identify the best recommendation.</p>
+                    </div>
+                    <div class="workflow-step">
+                        <span class="workflow-number">05</span>
+                        <h5>Analytics Summary</h5>
+                        <p>Dashboard metrics compare top recommendations against the baseline.</p>
+                    </div>
+                    <div class="workflow-step">
+                        <span class="workflow-number">06</span>
+                        <h5>Report Export</h5>
+                        <p>Users can generate PDF and Excel sustainability reports.</p>
+                    </div>
                 </div>
-                <div class="chart-card">
-                    <h4>Average Cost by Material Type</h4>
-                    <div id="costChart" class="chart"></div>
+            </section>
+
+            <!-- MODULES -->
+            <section class="mb-4 mb-lg-5">
+                <div class="section-header">
+                    <p class="section-kicker">Project Completion</p>
+                    <h2 class="section-title">Modules Covered in the Project</h2>
+                    <p class="section-subtitle">
+                        Show your mentor that the system is more than a simple frontend demo.
+                    </p>
                 </div>
-                <div class="chart-card">
-                    <h4>Average CO2 by Material Type</h4>
-                    <div id="co2Chart" class="chart"></div>
+
+                <div class="module-grid">
+                    <div class="module-card"><span>01</span><p>Data Collection & Management</p></div>
+                    <div class="module-card"><span>02</span><p>Data Cleaning & Feature Engineering</p></div>
+                    <div class="module-card"><span>03</span><p>ML Dataset Preparation</p></div>
+                    <div class="module-card"><span>04</span><p>AI Recommendation Model</p></div>
+                    <div class="module-card"><span>05</span><p>Flask Backend API Integration</p></div>
+                    <div class="module-card"><span>06</span><p>Frontend UI Development</p></div>
+                    <div class="module-card"><span>07</span><p>BI Dashboard & Reporting</p></div>
+                    <div class="module-card"><span>08</span><p>Deployment & Documentation</p></div>
                 </div>
-            </div>
+            </section>
 
-            <div class="report-actions">
-                <button id="refreshDashboardBtn" type="button">Refresh Dashboard</button>
-                <button id="exportPdfBtn" type="button" class="secondary">Export PDF Report</button>
-                <button id="exportExcelBtn" type="button">Export Excel Report</button>
-            </div>
-            <p id="dashboardStatus" class="status">Dashboard: not loaded</p>
-        </section>
+            <!-- BEST RECOMMENDATION -->
+            <section id="recommendation" class="mb-4 mb-lg-5">
+                <div class="section-header">
+                    <p class="section-kicker">Dataset Recommendation</p>
+                    <h2 class="section-title">Best Material from Dataset</h2>
+                    <p class="section-subtitle">
+                        The highest-ranked material based on your current trained model and dataset filters.
+                    </p>
+                </div>
 
-        <section class="panel">
-            <h2>Custom Material Recommendation</h2>
-            <form id="recommendForm" class="form-grid">
-                <label>Material Name<input id="materialName" value="Custom Candidate" /></label>
-                <label>Material Type<select id="materialType"></select></label>
-                <label>Strength Rating<input id="strengthRating" type="number" step="0.01" value="7.5" /></label>
-                <label>Weight Capacity<input id="weightCapacity" type="number" step="0.01" value="40" /></label>
-                <label>Biodegradability Score<input id="biodegradabilityScore" type="number" step="0.01" value="8" /></label>
-                <label>Recyclability %<input id="recyclabilityPercentage" type="number" step="0.01" value="82" /></label>
-                <button type="submit">Score Custom Material</button>
-            </form>
+                <div id="datasetBestCard" class="result-panel empty-state-card">
+                    <div class="empty-state-inner">
+                        <i class="bi bi-box2-heart"></i>
+                        <h4>Run dataset recommendation</h4>
+                        <p>
+                            The best material and its metrics will appear here after the model runs.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-            <h3>Best Material (Custom Input)</h3>
-            <div id="customBestCard" class="result-card muted">Submit custom input to view result.</div>
-        </section>
+            <!-- TABLE -->
+            <section class="mb-4 mb-lg-5">
+                <div class="section-header">
+                    <p class="section-kicker">Ranked Output</p>
+                    <h2 class="section-title">Top Ranked Materials</h2>
+                    <p class="section-subtitle">
+                        Detailed comparison of the highest-performing materials from the recommendation engine.
+                    </p>
+                </div>
+
+                <div class="panel-card table-panel">
+                    <div class="table-responsive">
+                        <table class="table ec-table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Material</th>
+                                    <th>Type</th>
+                                    <th>Eco Score</th>
+                                    <th>Predicted Cost</th>
+                                    <th>Predicted CO2</th>
+                                </tr>
+                            </thead>
+                            <tbody id="datasetTopBody">
+                                <tr>
+                                    <td colspan="6" class="empty-row">No recommendation yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="mb-4 mb-lg-5">
+                <div class="section-header">
+                    <p class="section-kicker">Business Intelligence</p>
+                    <h2 class="section-title">Sustainability Dashboard</h2>
+                    <p class="section-subtitle">
+                        Insights generated from top-ranked materials, baseline averages,
+                        and grouped material-type analytics.
+                    </p>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="kpi-card">
+                            <div class="kpi-icon"><i class="bi bi-recycle"></i></div>
+                            <div class="kpi-label">CO2 Reduction</div>
+                            <div id="kpiCo2Reduction" class="kpi-value">--</div>
+                            <div class="kpi-desc">Reduction against baseline average CO2</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="kpi-card">
+                            <div class="kpi-icon"><i class="bi bi-currency-rupee"></i></div>
+                            <div class="kpi-label">Cost Savings</div>
+                            <div id="kpiCostSavings" class="kpi-value">--</div>
+                            <div class="kpi-desc">Estimated savings against baseline average cost</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="kpi-card">
+                            <div class="kpi-icon"><i class="bi bi-award-fill"></i></div>
+                            <div class="kpi-label">Avg Eco Score (Top N)</div>
+                            <div id="kpiEcoScore" class="kpi-value">--</div>
+                            <div class="kpi-desc">Average eco-performance of selected top materials</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="chart-card">
+                            <div class="chart-card-top">
+                                <h4>Material Usage Trends</h4>
+                                <span class="chart-badge">Usage</span>
+                            </div>
+                            <div id="usageChart" class="chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="chart-card">
+                            <div class="chart-card-top">
+                                <h4>Average Cost by Material Type</h4>
+                                <span class="chart-badge">Cost</span>
+                            </div>
+                            <div id="costChart" class="chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="chart-card">
+                            <div class="chart-card-top">
+                                <h4>Average CO2 by Material Type</h4>
+                                <span class="chart-badge">CO2</span>
+                            </div>
+                            <div id="co2Chart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-card mt-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-lg-8">
+                            <h4 class="mb-2">Sustainability Reporting</h4>
+                            <p class="mb-0 text-muted">
+                                Export your dashboard summary with baseline values, top-N material insights,
+                                and sustainability metrics in PDF or Excel format.
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="report-actions justify-content-lg-end">
+                                <button id="refreshDashboardBtn" type="button" class="btn ec-btn-dark">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    Refresh
+                                </button>
+                                <button id="exportPdfBtn" type="button" class="btn ec-btn-secondary">
+                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    PDF
+                                </button>
+                                <button id="exportExcelBtn" type="button" class="btn ec-btn-light">
+                                    <i class="bi bi-file-earmark-excel"></i>
+                                    Excel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dashboardStatus" class="status-pill status-neutral mt-3">
+                        <i class="bi bi-circle-fill"></i>
+                        <span>Dashboard: not loaded</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CUSTOM -->
+            <section id="custom" class="mb-4 mb-lg-5">
+                <div class="section-header">
+                    <p class="section-kicker">Custom Material Analysis</p>
+                    <h2 class="section-title">Score Your Own Material Input</h2>
+                    <p class="section-subtitle">
+                        Submit custom material properties and let the backend score them using the trained models.
+                    </p>
+                </div>
+
+                <div class="panel-card form-panel">
+                    <form id="recommendForm">
+                        <div class="row g-3">
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Material Name</label>
+                                <input id="materialName" class="form-control ec-input" value="Custom Candidate" />
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Material Type</label>
+                                <select id="materialType" class="form-select ec-input"></select>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Strength Rating</label>
+                                <input id="strengthRating" class="form-control ec-input" type="number" step="0.01" value="7.5" />
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Weight Capacity</label>
+                                <input id="weightCapacity" class="form-control ec-input" type="number" step="0.01" value="40" />
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Biodegradability Score</label>
+                                <input id="biodegradabilityScore" class="form-control ec-input" type="number" step="0.01" value="8" />
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Recyclability %</label>
+                                <input id="recyclabilityPercentage" class="form-control ec-input" type="number" step="0.01" value="82" />
+                            </div>
+                        </div>
+
+                        <div class="mt-4 d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn ec-btn-primary btn-lg">
+                                <i class="bi bi-stars"></i>
+                                Score Custom Material
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="mt-4">
+                    <div class="section-header mb-3">
+                        <p class="section-kicker">Custom Result</p>
+                        <h2 class="section-title h4">Best Material from Custom Input</h2>
+                    </div>
+
+                    <div id="customBestCard" class="result-panel empty-state-card">
+                        <div class="empty-state-inner">
+                            <i class="bi bi-sliders"></i>
+                            <h4>Submit custom material details</h4>
+                            <p>
+                                The scored result for your custom material will be displayed here.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TECH STACK -->
+            <section class="mb-4">
+                <div class="section-header">
+                    <p class="section-kicker">Technology Stack</p>
+                    <h2 class="section-title">Built for Full Project Demonstration</h2>
+                    <p class="section-subtitle">
+                        Present this section to show that your project is full-stack and deployment-ready.
+                    </p>
+                </div>
+
+                <div class="tech-grid">
+                    <div class="tech-chip">Python</div>
+                    <div class="tech-chip">Flask</div>
+                    <div class="tech-chip">PostgreSQL</div>
+                    <div class="tech-chip">HTML</div>
+                    <div class="tech-chip">CSS</div>
+                    <div class="tech-chip">Bootstrap</div>
+                    <div class="tech-chip">JavaScript</div>
+                    <div class="tech-chip">Plotly</div>
+                    <div class="tech-chip">Machine Learning</div>
+                    <div class="tech-chip">PDF / Excel Export</div>
+                    <div class="tech-chip">REST API</div>
+                    <div class="tech-chip">Render Deployment</div>
+                </div>
+            </section>
+
+            <footer class="footer-note text-center mt-5">
+                <p class="mb-0">
+                    EcoPackAI — AI-powered sustainable packaging recommendation, analytics, and reporting platform.
+                </p>
+            </footer>
+        </div>
     </main>
 
     <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
