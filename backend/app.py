@@ -10,7 +10,7 @@ import pandas as pd
 from flask import Flask, jsonify, request, send_file, send_from_directory
 from sklearn.preprocessing import LabelEncoder
 import logging
-from fpdf import FPDF
+from fpdf import FPDF, XPos, YPos
 from openpyxl import Workbook
 
 # ================== Setup ==================
@@ -276,12 +276,18 @@ def _render_pdf_report(summary: dict[str, Any]) -> bytes:
     pdf.add_page()
 
     pdf.set_font("Helvetica", "B", 16)
-    pdf.cell(0, 10, "EcoPackAI Sustainability Report", ln=1)
+    pdf.cell(0, 10, "EcoPackAI Sustainability Report", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
     pdf.set_font("Helvetica", size=11)
-    pdf.cell(0, 8, f"Generated (UTC): {summary['generated_at']}", ln=1)
+    pdf.cell(0, 8, f"Generated (UTC): {summary['generated_at']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     if summary.get("filter_type"):
-        pdf.cell(0, 8, f"Filtered Material Type: {summary['filter_type']}", ln=1)
+        pdf.cell(
+            0,
+            8,
+            f"Filtered Material Type: {summary['filter_type']}",
+            new_x=XPos.LMARGIN,
+            new_y=YPos.NEXT,
+        )
     pdf.ln(4)
 
     baseline = summary["baseline"]
@@ -289,18 +295,18 @@ def _render_pdf_report(summary: dict[str, Any]) -> bytes:
     savings = summary["savings"]
 
     pdf.set_font("Helvetica", "B", 12)
-    pdf.cell(0, 8, "Key Metrics", ln=1)
+    pdf.cell(0, 8, "Key Metrics", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_font("Helvetica", size=11)
-    pdf.cell(0, 7, f"Baseline Avg Cost: {baseline['avg_cost']}", ln=1)
-    pdf.cell(0, 7, f"Baseline Avg CO2: {baseline['avg_co2']}", ln=1)
-    pdf.cell(0, 7, f"Top {top['top_n']} Avg Cost: {top['avg_cost']}", ln=1)
-    pdf.cell(0, 7, f"Top {top['top_n']} Avg CO2: {top['avg_co2']}", ln=1)
-    pdf.cell(0, 7, f"Cost Savings %: {savings['cost_savings_pct']}", ln=1)
-    pdf.cell(0, 7, f"CO2 Reduction %: {savings['co2_reduction_pct']}", ln=1)
+    pdf.cell(0, 7, f"Baseline Avg Cost: {baseline['avg_cost']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(0, 7, f"Baseline Avg CO2: {baseline['avg_co2']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(0, 7, f"Top {top['top_n']} Avg Cost: {top['avg_cost']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(0, 7, f"Top {top['top_n']} Avg CO2: {top['avg_co2']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(0, 7, f"Cost Savings %: {savings['cost_savings_pct']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.cell(0, 7, f"CO2 Reduction %: {savings['co2_reduction_pct']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.ln(4)
 
     pdf.set_font("Helvetica", "B", 12)
-    pdf.cell(0, 8, "Top Recommended Materials", ln=1)
+    pdf.cell(0, 8, "Top Recommended Materials", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_font("Helvetica", size=10)
 
     col_widths = [50, 30, 30, 30, 30]
@@ -321,8 +327,11 @@ def _render_pdf_report(summary: dict[str, Any]) -> bytes:
             pdf.cell(width, 7, str(value)[:24], border=1)
         pdf.ln()
 
-    pdf_bytes = pdf.output(dest="S").encode("latin-1")
-    return pdf_bytes
+    # fpdf2 may return `str`, `bytes`, or `bytearray` depending on version.
+    pdf_output = pdf.output()
+    if isinstance(pdf_output, str):
+        return pdf_output.encode("latin-1")
+    return bytes(pdf_output)
 
 def _render_excel_report(summary: dict[str, Any]) -> bytes:
     workbook = Workbook()
