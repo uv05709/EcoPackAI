@@ -7,7 +7,7 @@ import io
 
 import joblib
 import pandas as pd
-from flask import Flask, jsonify, request, send_file, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, make_response
 from sklearn.preprocessing import LabelEncoder
 import logging
 from fpdf import FPDF, XPos, YPos
@@ -182,6 +182,8 @@ def _score_materials(frame: pd.DataFrame, resources: dict[str, Any], top_n: int 
     
     if filter_type:
         model_frame = model_frame[model_frame["material_type"] == filter_type]
+    if model_frame.empty:
+        return model_frame
 
     X = model_frame[resources["feature_columns"]]
     X_scaled = resources["scaler"].transform(X)
@@ -201,14 +203,190 @@ def _score_materials(frame: pd.DataFrame, resources: dict[str, Any], top_n: int 
         model_frame = model_frame.head(top_n)
     return model_frame
 
+def _safe_percent_delta(reference: float, candidate: float, higher_is_better: bool = False) -> float:
+    base = abs(float(reference))
+    if base <= 1e-9:
+        return 0.0
+    if higher_is_better:
+        return (float(candidate) - float(reference)) / base * 100.0
+    return (float(reference) - float(candidate)) / base * 100.0
+
+def _join_phrases(phrases: list[str]) -> str:
+    cleaned = [phrase.strip() for phrase in phrases if phrase and phrase.strip()]
+    if not cleaned:
+        return ""
+    if len(cleaned) == 1:
+        return cleaned[0]
+    if len(cleaned) == 2:
+        return f"{cleaned[0]} and {cleaned[1]}"
+    return f"{', '.join(cleaned[:-1])}, and {cleaned[-1]}"
+
+def _safe_top_n(value: Any, default: int = 5, min_value: int = 1) -> int:
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        parsed = default
+    return max(parsed, min_value)
+
 def _format_material(row: pd.Series) -> dict[str, Any]:
+    durability_score = row.get("material_suitability_score", row.get("strength_rating", 0.0))
     return {
         "material_name": row.get("material_name", "Custom Material"),
         "material_type": row["material_type"],
+        "strength_rating": round(float(row.get("strength_rating", 0.0)), 4),
+        "weight_capacity": round(float(row.get("weight_capacity", 0.0)), 4),
+        "biodegradability_score": round(float(row.get("biodegradability_score", 0.0)), 4),
+        "recyclability_percentage": round(float(row.get("recyclability_percentage", 0.0)), 4),
+        "durability_score": round(float(durability_score), 4),
         "predicted_cost": round(float(row["predicted_cost"]), 4),
         "predicted_co2": round(float(row["predicted_co2"]), 4),
         "eco_score": round(float(row["eco_score"]), 4),
+        "final_ranking_score": round(float(row["eco_score"]), 4),
     }
+
+def _build_material_badges(scored_frame: pd.DataFrame, index: int) -> list[str]:
+    if scored_frame.empty:
+        return []
+
+    row = scored_frame.iloc[index]
+    top_slice = scored_frame.head(min(3, len(scored_frame)))
+    badges: list[str] = []
+
+    if index == 0:
+        badges.append("Top Ranked")
+    if float(row["predicted_co2"]) <= float(top_slice["predicted_co2"].min()):
+        badges.append("Lowest CO2")
+    if float(row["recyclability_percentage"]) >= float(top_slice["recyclability_percentage"].max()):
+        badges.append("Most Recyclable")
+
+    row_efficiency = float(row["eco_score"]) / max(float(row["predicted_cost"]), 1e-6)
+    top_efficiency = (top_slice["eco_score"] / top_slice["predicted_cost"].clip(lower=1e-6)).max()
+    if row_efficiency >= float(top_efficiency):
+        badges.append("Best Cost Balance")
+
+    return badges[:3]
+
+def _build_material_explanation(scored_frame: pd.DataFrame, index: int) -> dict[str, Any]:
+    # Build explanation text from real ranking signals so frontend does not rely on hardcoded narratives.
+    row = scored_frame.iloc[index]
+    next_row = scored_frame.iloc[index + 1] if index + 1 < len(scored_frame) else None
+    median_values = scored_frame[["predicted_co2", "predicted_cost", "strength_rating", "biodegradability_score", "recyclability_percentage"]].median()
+
+    reasons: list[str] = []
+    if float(row["predicted_co2"]) <= float(median_values["predicted_co2"]):
+        reasons.append("lower predicted CO2 emissions")
+    if float(row["predicted_cost"]) <= float(median_values["predicted_cost"]):
+        reasons.append("competitive predicted cost")
+    if float(row["strength_rating"]) >= float(median_values["strength_rating"]):
+        reasons.append("strong durability for packaging use")
+    if float(row["biodegradability_score"]) >= float(median_values["biodegradability_score"]):
+        reasons.append("high biodegradability")
+    if float(row["recyclability_percentage"]) >= float(median_values["recyclability_percentage"]):
+        reasons.append("high recyclability")
+
+    if len(reasons) < 2:
+        reasons.extend(
+            [
+                "a balanced sustainability-cost profile",
+                "consistent durability for transport and handling",
+            ]
+        )
+
+    relative_comparison: list[str] = []
+    if next_row is not None:
+        co2_better = _safe_percent_delta(float(next_row["predicted_co2"]), float(row["predicted_co2"]))
+        cost_better = _safe_percent_delta(float(next_row["predicted_cost"]), float(row["predicted_cost"]))
+        eco_advantage = float(row["eco_score"]) - float(next_row["eco_score"])
+        if abs(co2_better) >= 0.1:
+            if co2_better >= 0:
+                relative_comparison.append(f"{co2_better:.1f}% lower CO2 than rank {index + 2}.")
+            else:
+                relative_comparison.append(f"{abs(co2_better):.1f}% higher CO2 than rank {index + 2}.")
+        if abs(cost_better) >= 0.1:
+            if cost_better >= 0:
+                relative_comparison.append(f"{cost_better:.1f}% lower predicted cost than rank {index + 2}.")
+            else:
+                relative_comparison.append(f"{abs(cost_better):.1f}% higher predicted cost than rank {index + 2}.")
+        if abs(eco_advantage) >= 0.01:
+            if eco_advantage >= 0:
+                relative_comparison.append(f"Eco score lead of {eco_advantage:.2f} over rank {index + 2}.")
+            else:
+                relative_comparison.append(f"Eco score trails rank {index + 2} by {abs(eco_advantage):.2f}.")
+
+    plastic_group = scored_frame[
+        scored_frame["material_type"].astype(str).str.contains("plastic", case=False, na=False)
+    ]
+    if not plastic_group.empty:
+        row_efficiency = float(row["eco_score"]) / max(float(row["predicted_cost"]), 1e-6)
+        plastic_efficiency = (
+            plastic_group["eco_score"] / plastic_group["predicted_cost"].clip(lower=1e-6)
+        ).mean()
+        efficiency_gain = _safe_percent_delta(
+            float(plastic_efficiency), float(row_efficiency), higher_is_better=True
+        )
+        if abs(efficiency_gain) >= 0.1:
+            if efficiency_gain >= 0:
+                relative_comparison.append(
+                    f"{efficiency_gain:.1f}% more cost-efficient than plastic-based alternatives."
+                )
+            else:
+                relative_comparison.append(
+                    f"{abs(efficiency_gain):.1f}% less cost-efficient than plastic-based alternatives."
+                )
+
+    primary_reason = _join_phrases(reasons[:3])
+    why_selected = (
+        f"This material is recommended because it delivers {primary_reason} while maintaining "
+        f"an overall ranking score of {float(row['eco_score']):.2f}."
+    )
+
+    return {
+        "why_selected": why_selected,
+        "relative_comparison": relative_comparison,
+        "key_factors": reasons[:4],
+    }
+
+def _serialize_ranked_materials(scored_frame: pd.DataFrame) -> list[dict[str, Any]]:
+    if scored_frame.empty:
+        return []
+
+    ranked_output: list[dict[str, Any]] = []
+    for index, (_, row) in enumerate(scored_frame.iterrows()):
+        material = _format_material(row)
+        material["rank"] = index + 1
+        material["badges"] = _build_material_badges(scored_frame, index)
+        material["explanation"] = _build_material_explanation(scored_frame, index)
+        ranked_output.append(material)
+    return ranked_output
+
+def _build_rank_winner_reason(top_materials: list[dict[str, Any]]) -> str:
+    if not top_materials:
+        return "No ranked materials were available for comparison."
+    if len(top_materials) == 1:
+        return "Only one candidate was available, so it is selected by default."
+
+    first = top_materials[0]
+    second = top_materials[1]
+    co2_better = _safe_percent_delta(second["predicted_co2"], first["predicted_co2"])
+    cost_better = _safe_percent_delta(second["predicted_cost"], first["predicted_cost"])
+    eco_advantage = first["eco_score"] - second["eco_score"]
+    co2_text = (
+        f"{abs(co2_better):.1f}% lower CO2" if co2_better >= 0 else f"{abs(co2_better):.1f}% higher CO2"
+    )
+    cost_text = (
+        f"{abs(cost_better):.1f}% lower predicted cost"
+        if cost_better >= 0
+        else f"{abs(cost_better):.1f}% higher predicted cost"
+    )
+    eco_text = (
+        f"+{eco_advantage:.2f} eco-score advantage"
+        if eco_advantage >= 0
+        else f"{abs(eco_advantage):.2f} eco-score disadvantage"
+    )
+
+    return (
+        f"{first['material_name']} compared to rank 2: {co2_text}, {cost_text}, and a {eco_text}."
+    )
 
 def _summarize_by_material_type(scored_frame: pd.DataFrame) -> pd.DataFrame:
     grouped = (
@@ -223,6 +401,71 @@ def _summarize_by_material_type(scored_frame: pd.DataFrame) -> pd.DataFrame:
         .reset_index()
     )
     return grouped
+
+def _build_actionable_insights(scored: pd.DataFrame, baseline_cost: float, baseline_co2: float) -> list[dict[str, Any]]:
+    if scored.empty:
+        return []
+
+    # Keep dashboard insights business-friendly while grounding every card in model predictions.
+    best = scored.iloc[0]
+    best_cost = float(best["predicted_cost"])
+    best_co2 = float(best["predicted_co2"])
+
+    co2_reduction_vs_baseline = _safe_percent_delta(baseline_co2, best_co2)
+    cost_savings_vs_baseline = baseline_cost - best_cost
+
+    low_cost_eco = scored[
+        (scored["predicted_cost"] <= baseline_cost)
+        & (scored["eco_score"] >= scored["eco_score"].quantile(0.70))
+    ]
+    if low_cost_eco.empty:
+        low_cost_eco = scored.nsmallest(1, "predicted_cost")
+    else:
+        low_cost_eco = low_cost_eco.sort_values(["predicted_cost", "predicted_co2"]).head(1)
+    low_cost_eco_row = low_cost_eco.iloc[0]
+
+    return [
+        {
+            "title": "Recommended switch",
+            "value": best.get("material_name", "Top Material"),
+            "insight": (
+                f"Switching to {best.get('material_name', 'this material')} could reduce CO2 by "
+                f"{co2_reduction_vs_baseline:.1f}% compared to current dataset baseline."
+            ),
+            "action": "Pilot this material in the next procurement cycle.",
+            "badge": "Best Choice",
+        },
+        {
+            "title": "Estimated packaging cost savings",
+            "value": round(cost_savings_vs_baseline, 4),
+            "insight": (
+                f"Estimated savings of {cost_savings_vs_baseline:.2f} per unit versus average baseline cost."
+            ),
+            "action": "Prioritize this option for high-volume SKUs first.",
+            "badge": "Cost Impact",
+        },
+        {
+            "title": "Most sustainable material",
+            "value": best.get("material_name", "Top Material"),
+            "insight": (
+                f"Highest eco score in the dataset: {float(best['eco_score']):.2f} with predicted CO2 of "
+                f"{best_co2:.2f}."
+            ),
+            "action": "Use as default where compliance requires strongest sustainability metrics.",
+            "badge": "Sustainability Leader",
+        },
+        {
+            "title": "Best low-cost eco alternative",
+            "value": low_cost_eco_row.get("material_name", "Alternative"),
+            "insight": (
+                f"{low_cost_eco_row.get('material_name', 'This option')} balances low cost "
+                f"({float(low_cost_eco_row['predicted_cost']):.2f}) with eco score "
+                f"{float(low_cost_eco_row['eco_score']):.2f}."
+            ),
+            "action": "Use this option when budget is the primary constraint.",
+            "badge": "Budget Friendly",
+        },
+    ]
 
 def _build_dashboard_summary(resources: dict[str, Any], top_n: int = 5, filter_type: str | None = None) -> dict[str, Any]:
     scored = _score_materials(resources["dataset"], resources, top_n=None, filter_type=filter_type)
@@ -244,6 +487,7 @@ def _build_dashboard_summary(resources: dict[str, Any], top_n: int = 5, filter_t
     co2_reduction_pct = ((baseline_co2 - top_co2) / baseline_co2 * 100.0) if baseline_co2 > 0 else 0.0
 
     usage = _summarize_by_material_type(scored).head(8)
+    ranked_top = _serialize_ranked_materials(top_frame)
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -266,8 +510,9 @@ def _build_dashboard_summary(resources: dict[str, Any], top_n: int = 5, filter_t
             "avg_co2": usage["avg_co2"].round(4).tolist(),
             "avg_eco": usage["avg_eco"].round(4).tolist(),
         },
-        "best_material": _format_material(scored.iloc[0]),
-        "top_materials": [_format_material(row) for _, row in top_frame.iterrows()],
+        "best_material": ranked_top[0],
+        "top_materials": ranked_top,
+        "actionable_insights": _build_actionable_insights(scored, baseline_cost, baseline_co2),
     }
 
 def _render_pdf_report(summary: dict[str, Any]) -> bytes:
@@ -372,6 +617,14 @@ def _render_excel_report(summary: dict[str, Any]) -> bytes:
     output.seek(0)
     return output.read()
 
+def _build_file_download_response(content: bytes, mime_type: str, filename: str):
+    response = make_response(content)
+    response.headers["Content-Type"] = mime_type
+    response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
+    response.headers["Content-Length"] = str(len(content))
+    response.headers["Cache-Control"] = "no-store, max-age=0"
+    return response
+
 # ================== Load Resources ==================
 try:
     RESOURCES = _load_resources()
@@ -424,16 +677,26 @@ def recommend_from_dataset() -> Any:
     if STARTUP_ERROR:
         return jsonify({"error": STARTUP_ERROR}), 500
 
-    top_n = request.args.get("top_n", default=5, type=int)
+    requested_top_n = request.args.get("top_n", default=5, type=int)
     filter_type = request.args.get("material_type", default=None, type=str)
+    top_n = _safe_top_n(requested_top_n, default=5, min_value=3)
 
     ranked = _score_materials(RESOURCES["dataset"], RESOURCES, top_n=top_n, filter_type=filter_type)
-    best = ranked.iloc[0]
+    if ranked.empty:
+        return jsonify({"error": "No materials available for the selected filter."}), 400
+    ranked_materials = _serialize_ranked_materials(ranked)
+    best = ranked_materials[0]
+    top_3 = ranked_materials[: min(3, len(ranked_materials))]
 
     return jsonify({
         "source": "dataset",
-        "best_material": _format_material(best),
-        "top_ranked": [_format_material(row) for _, row in ranked.iterrows()]
+        "best_material": best,
+        "top_ranked": ranked_materials,
+        "ranked_materials": ranked_materials,
+        "top_3_comparison": {
+            "materials": top_3,
+            "why_rank_1_wins": _build_rank_winner_reason(top_3),
+        },
     })
 
 @app.post("/recommend")
@@ -443,8 +706,9 @@ def recommend_from_payload() -> Any:
 
     payload = request.get_json(silent=True) or {}
     materials = payload.get("materials")
-    top_n = payload.get("top_n", None)
+    requested_top_n = payload.get("top_n", None)
     filter_type = payload.get("material_type", None)
+    top_n = _safe_top_n(requested_top_n, default=5, min_value=3)
 
     if not isinstance(materials, list):
         return jsonify({"error": "Request body must include 'materials' as a list"}), 400
@@ -452,17 +716,27 @@ def recommend_from_payload() -> Any:
     try:
         prepared = _validate_and_prepare_materials(materials, RESOURCES["encoder"])
         ranked = _score_materials(prepared, RESOURCES, top_n=top_n, filter_type=filter_type)
+        if ranked.empty:
+            raise ValueError("No materials available for the selected filter.")
     except ValueError as exc:
         return jsonify({"error": str(exc)}), 400
     except Exception as exc:
         logging.exception("Failed to score materials")
         return jsonify({"error": f"Failed to score materials: {exc}"}), 500
 
-    best = ranked.iloc[0]
+    ranked_materials = _serialize_ranked_materials(ranked)
+    best = ranked_materials[0]
+    top_3 = ranked_materials[: min(3, len(ranked_materials))]
+
     return jsonify({
         "source": "request_payload",
-        "best_material": _format_material(best),
-        "ranked_materials": [_format_material(row) for _, row in ranked.iterrows()]
+        "best_material": best,
+        "ranked_materials": ranked_materials,
+        "top_ranked": ranked_materials,
+        "top_3_comparison": {
+            "materials": top_3,
+            "why_rank_1_wins": _build_rank_winner_reason(top_3),
+        },
     })
 
 @app.get("/analytics/summary")
@@ -502,19 +776,17 @@ def sustainability_report() -> Any:
 
     if report_format in {"pdf"}:
         content = _render_pdf_report(summary)
-        return send_file(
-            io.BytesIO(content),
-            mimetype="application/pdf",
-            as_attachment=True,
-            download_name="EcoPackAI_Sustainability_Report.pdf",
+        return _build_file_download_response(
+            content=content,
+            mime_type="application/pdf",
+            filename="EcoPackAI_Sustainability_Report.pdf",
         )
     if report_format in {"excel", "xlsx"}:
         content = _render_excel_report(summary)
-        return send_file(
-            io.BytesIO(content),
-            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            as_attachment=True,
-            download_name="EcoPackAI_Sustainability_Report.xlsx",
+        return _build_file_download_response(
+            content=content,
+            mime_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            filename="EcoPackAI_Sustainability_Report.xlsx",
         )
 
     return jsonify({"error": "Unsupported format. Use pdf or excel."}), 400

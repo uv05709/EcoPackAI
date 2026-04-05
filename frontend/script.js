@@ -2,7 +2,11 @@ const byId = (id) => document.getElementById(id);
 let latestTopRanked = [];
 
 function getBaseUrl() {
-    return byId("apiBaseUrl").value.trim().replace(/\/$/, "");
+    const raw = byId("apiBaseUrl").value.trim().replace(/\/$/, "");
+    if (window.location.protocol === "https:" && raw.startsWith("http://")) {
+        return raw.replace("http://", "https://");
+    }
+    return raw;
 }
 
 function formatNumber(value, digits = 2) {
@@ -14,13 +18,28 @@ function formatNumber(value, digits = 2) {
 function formatCurrency(value) {
     const num = Number(value);
     if (Number.isNaN(num)) return "--";
-    return `₹ ${num.toFixed(2)}`;
+    return `INR ${num.toFixed(2)}`;
 }
 
 function formatCo2(value) {
     const num = Number(value);
     if (Number.isNaN(num)) return "--";
     return `${num.toFixed(2)} kg`;
+}
+
+function formatPercent(value, digits = 1) {
+    const num = Number(value);
+    if (Number.isNaN(num)) return "--";
+    return `${num.toFixed(digits)}%`;
+}
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 function getScoreClass(score) {
@@ -51,10 +70,6 @@ function getCo2Summary(co2) {
     return "Higher estimated carbon footprint";
 }
 
-function getRecommendationText(material) {
-    return `${material.material_name} is recommended because it achieves a strong balance between sustainability score, estimated cost, and predicted CO2 impact for the current selection.`;
-}
-
 function updateStatusElement(elementId, message, state = "neutral") {
     const el = byId(elementId);
     el.className = "status-pill";
@@ -69,7 +84,7 @@ function updateStatusElement(elementId, message, state = "neutral") {
 
     el.innerHTML = `
         <i class="bi bi-circle-fill"></i>
-        <span>${message}</span>
+        <span>${escapeHtml(message)}</span>
     `;
 }
 
@@ -77,7 +92,7 @@ function renderLoading(containerId, message = "Loading...") {
     byId(containerId).innerHTML = `
         <div class="spinner-wrap">
             <span class="spinner"></span>
-            <span>${message}</span>
+            <span>${escapeHtml(message)}</span>
         </div>
     `;
 }
@@ -85,11 +100,30 @@ function renderLoading(containerId, message = "Loading...") {
 function renderEmptyCard(containerId, iconClass, title, text) {
     byId(containerId).innerHTML = `
         <div class="empty-state-inner">
-            <i class="${iconClass}"></i>
-            <h4>${title}</h4>
-            <p>${text}</p>
+            <i class="${escapeHtml(iconClass)}"></i>
+            <h4>${escapeHtml(title)}</h4>
+            <p>${escapeHtml(text)}</p>
         </div>
     `;
+}
+
+function renderBadgeList(badges = []) {
+    if (!Array.isArray(badges) || badges.length === 0) return "";
+    return `
+        <div class="inline-badges mt-2">
+            ${badges
+                .map((badge) => `<span class="compare-badge">${escapeHtml(badge)}</span>`)
+                .join("")}
+        </div>
+    `;
+}
+
+function renderRelativeComparisonList(explanation) {
+    const entries = explanation?.relative_comparison || [];
+    if (!entries.length) {
+        return `<li>No strong deltas were detected against nearby alternatives.</li>`;
+    }
+    return entries.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
 }
 
 function renderMaterialCard(containerId, material, title = "Recommended Material") {
@@ -105,41 +139,42 @@ function renderMaterialCard(containerId, material, title = "Recommended Material
         return;
     }
 
+    const explanation = material.explanation || {};
+    const whySelected =
+        explanation.why_selected ||
+        "This material was selected based on its overall sustainability and cost profile.";
+
     target.innerHTML = `
         <div class="result-header">
             <div class="result-title">
                 <div class="inline-badges">
                     <span class="rank-badge">
                         <i class="bi bi-trophy-fill"></i>
-                        ${title}
+                        ${escapeHtml(title)}
                     </span>
                     <span class="type-badge">
                         <i class="bi bi-tag-fill"></i>
-                        ${material.material_type}
+                        ${escapeHtml(material.material_type)}
+                    </span>
+                    <span class="type-badge">
+                        <i class="bi bi-list-ol"></i>
+                        Rank #${escapeHtml(material.rank || 1)}
                     </span>
                 </div>
-                <h3>${material.material_name}</h3>
-                <p>AI-selected material based on current model scoring and sustainability ranking.</p>
+                <h3>${escapeHtml(material.material_name)}</h3>
+                <p>AI-ranked material based on sustainability, durability, cost, and CO2 prediction.</p>
+                ${renderBadgeList(material.badges)}
             </div>
 
             <div>
                 <span class="score-badge">
                     <i class="bi bi-stars"></i>
-                    Eco Score: ${formatNumber(material.eco_score, 3)}
+                    Final Score: ${formatNumber(material.final_ranking_score ?? material.eco_score, 3)}
                 </span>
             </div>
         </div>
 
         <div class="result-grid">
-            <div class="metric-box">
-                <div class="metric-top">
-                    <span class="metric-label">Eco Score</span>
-                    <i class="bi bi-leaf-fill"></i>
-                </div>
-                <span class="metric-value">${formatNumber(material.eco_score, 3)}</span>
-                <span class="metric-note">${getEcoSummary(material.eco_score)}</span>
-            </div>
-
             <div class="metric-box">
                 <div class="metric-top">
                     <span class="metric-label">Predicted Cost</span>
@@ -157,13 +192,99 @@ function renderMaterialCard(containerId, material, title = "Recommended Material
                 <span class="metric-value">${formatCo2(material.predicted_co2)}</span>
                 <span class="metric-note">${getCo2Summary(material.predicted_co2)}</span>
             </div>
+
+            <div class="metric-box">
+                <div class="metric-top">
+                    <span class="metric-label">Durability Score</span>
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <span class="metric-value">${formatNumber(material.durability_score, 2)}</span>
+                <span class="metric-note">Strength and suitability benchmark</span>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-top">
+                    <span class="metric-label">Biodegradability</span>
+                    <i class="bi bi-tree-fill"></i>
+                </div>
+                <span class="metric-value">${formatNumber(material.biodegradability_score, 2)}</span>
+                <span class="metric-note">Higher is better for natural breakdown</span>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-top">
+                    <span class="metric-label">Recyclability</span>
+                    <i class="bi bi-recycle"></i>
+                </div>
+                <span class="metric-value">${formatPercent(material.recyclability_percentage, 1)}</span>
+                <span class="metric-note">Potential for circular reuse</span>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-top">
+                    <span class="metric-label">Eco Score</span>
+                    <i class="bi bi-leaf-fill"></i>
+                </div>
+                <span class="metric-value">${formatNumber(material.eco_score, 3)}</span>
+                <span class="metric-note">${getEcoSummary(material.eco_score)}</span>
+            </div>
         </div>
 
-        <div class="recommendation-note">
-            <strong>Why this material is recommended:</strong><br />
-            ${getRecommendationText(material)}
+        <div class="recommendation-note mt-3">
+            <strong>Why this was selected</strong>
+            <p class="mt-2 mb-2">${escapeHtml(whySelected)}</p>
+            <ul class="mb-0 recommendation-points">
+                ${renderRelativeComparisonList(explanation)}
+            </ul>
         </div>
     `;
+}
+
+function renderTopComparison(comparisonPayload) {
+    const target = byId("topComparisonCards");
+    const materials = comparisonPayload?.materials || [];
+
+    if (!materials.length) {
+        target.innerHTML = `
+            <div class="empty-state-inner">
+                <i class="bi bi-columns-gap"></i>
+                <h4>Comparison not available</h4>
+                <p>Top 3 comparison will appear after recommendation is generated.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const cards = materials
+        .map((material) => {
+            const isWinner = Number(material.rank) === 1;
+            return `
+                <article class="comparison-card ${isWinner ? "comparison-winner" : ""}">
+                    <div class="comparison-head">
+                        <span class="comparison-rank">Rank #${escapeHtml(material.rank)}</span>
+                        <span class="score-pill ${getScoreClass(material.eco_score)}">${formatNumber(material.eco_score, 3)}</span>
+                    </div>
+                    <h4>${escapeHtml(material.material_name)}</h4>
+                    <p class="comparison-type">${escapeHtml(material.material_type)}</p>
+                    ${renderBadgeList(material.badges)}
+                    <div class="comparison-metrics">
+                        <div><span>Predicted Cost</span><strong>${formatCurrency(material.predicted_cost)}</strong></div>
+                        <div><span>Predicted CO2</span><strong>${formatCo2(material.predicted_co2)}</strong></div>
+                        <div><span>Recyclability</span><strong>${formatPercent(material.recyclability_percentage, 1)}</strong></div>
+                        <div><span>Biodegradability</span><strong>${formatNumber(material.biodegradability_score, 2)}</strong></div>
+                        <div><span>Durability</span><strong>${formatNumber(material.durability_score, 2)}</strong></div>
+                        <div><span>Final Score</span><strong>${formatNumber(material.final_ranking_score ?? material.eco_score, 3)}</strong></div>
+                    </div>
+                </article>
+            `;
+        })
+        .join("");
+
+    const winnerReason = comparisonPayload?.why_rank_1_wins
+        ? `<div class="comparison-summary">${escapeHtml(comparisonPayload.why_rank_1_wins)}</div>`
+        : "";
+
+    target.innerHTML = `${winnerReason}<div class="comparison-cards-grid">${cards}</div>`;
 }
 
 function renderTopTable(bodyId, rows) {
@@ -181,8 +302,8 @@ function renderTopTable(bodyId, rows) {
             return `
                 <tr>
                     <td class="rank-cell">#${index + 1}</td>
-                    <td class="material-name">${row.material_name}</td>
-                    <td><span class="table-type-badge">${row.material_type}</span></td>
+                    <td class="material-name">${escapeHtml(row.material_name)}</td>
+                    <td><span class="table-type-badge">${escapeHtml(row.material_type)}</span></td>
                     <td><span class="score-pill ${scoreClass}">${formatNumber(row.eco_score, 3)}</span></td>
                     <td>${formatCurrency(row.predicted_cost)}</td>
                     <td>${formatCo2(row.predicted_co2)}</td>
@@ -246,10 +367,47 @@ function renderChart(targetId, data, layout) {
     });
 }
 
+function renderDashboardInsights(insights = []) {
+    const target = byId("dashboardInsights");
+
+    if (!Array.isArray(insights) || insights.length === 0) {
+        target.innerHTML = `
+            <div class="col-12">
+                <div class="insight-card">
+                    <span class="insight-badge">Action Insight</span>
+                    <h5>No actionable insights available</h5>
+                    <p>Try changing Top N or material filter and refresh dashboard.</p>
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    target.innerHTML = insights
+        .slice(0, 5)
+        .map((item) => {
+            const isNumericValue = typeof item.value === "number" && item.title.toLowerCase().includes("cost");
+            const value = isNumericValue ? formatCurrency(item.value) : String(item.value || "--");
+            return `
+                <div class="col-md-6 col-lg-4">
+                    <div class="insight-card">
+                        <span class="insight-badge">${escapeHtml(item.badge || "Action Insight")}</span>
+                        <h5>${escapeHtml(item.title || "Insight")}</h5>
+                        <div class="insight-value">${escapeHtml(value)}</div>
+                        <p>${escapeHtml(item.insight || "")}</p>
+                        <div class="insight-action"><strong>Recommended action:</strong> ${escapeHtml(item.action || "Review this option.")}</div>
+                    </div>
+                </div>
+            `;
+        })
+        .join("");
+}
+
 function renderDashboard(summary) {
     byId("kpiCo2Reduction").textContent = `${summary.savings.co2_reduction_pct}%`;
     byId("kpiCostSavings").textContent = `${summary.savings.cost_savings_pct}%`;
     byId("kpiEcoScore").textContent = summary.top_summary.avg_eco_score;
+    renderDashboardInsights(summary.actionable_insights || []);
 
     const labels = summary.usage_trends.labels || [];
 
@@ -304,15 +462,55 @@ async function loadDashboard() {
     }
 }
 
-function downloadReport(format) {
+function getFilenameFromDisposition(disposition, fallbackName) {
+    if (!disposition) return fallbackName;
+    const match = disposition.match(/filename="?([^"]+)"?/i);
+    if (!match || !match[1]) return fallbackName;
+    return match[1];
+}
+
+async function downloadReport(format) {
     const topN = Number(byId("topN").value) || 5;
     const filterType = byId("filterMaterialType").value || null;
     const query = `/reports/sustainability?format=${format}&top_n=${topN}${filterType ? "&material_type=" + encodeURIComponent(filterType) : ""}`;
 
-    const link = document.createElement("a");
-    link.href = `${getBaseUrl()}${query}`;
-    link.target = "_blank";
-    link.click();
+    const fallbackName = format === "pdf"
+        ? "EcoPackAI_Sustainability_Report.pdf"
+        : "EcoPackAI_Sustainability_Report.xlsx";
+
+    try {
+        updateStatusElement("dashboardStatus", `Dashboard: preparing ${format.toUpperCase()} report...`, "neutral");
+        const response = await fetch(`${getBaseUrl()}${query}`, { method: "GET" });
+        if (!response.ok) {
+            let errorMessage = `Download failed (${response.status})`;
+            try {
+                const errorData = await response.json();
+                errorMessage = errorData.error || errorData.message || errorMessage;
+            } catch (error) {
+                // keep fallback message
+            }
+            throw new Error(errorMessage);
+        }
+
+        const blob = await response.blob();
+        const filename = getFilenameFromDisposition(
+            response.headers.get("Content-Disposition"),
+            fallbackName
+        );
+
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(objectUrl);
+
+        updateStatusElement("dashboardStatus", `Dashboard: ${format.toUpperCase()} report downloaded`, "success");
+    } catch (error) {
+        updateStatusElement("dashboardStatus", `Dashboard: ${error.message}`, "danger");
+    }
 }
 
 async function loadMaterialTypes() {
@@ -373,6 +571,7 @@ async function checkHealth() {
 async function datasetRecommendation() {
     renderLoading("datasetBestCard", "Generating best dataset material...");
     renderTopTable("datasetTopBody", []);
+    renderTopComparison(null);
 
     try {
         const topN = Number(byId("topN").value) || 5;
@@ -381,8 +580,10 @@ async function datasetRecommendation() {
         const query = `/recommend?top_n=${topN}${filterType ? "&material_type=" + encodeURIComponent(filterType) : ""}`;
         const data = await callApi(query);
 
+        const rankedRows = data.top_ranked || data.ranked_materials || [];
         renderMaterialCard("datasetBestCard", data.best_material, "Best Dataset Material");
-        renderTopTable("datasetTopBody", data.top_ranked || []);
+        renderTopComparison(data.top_3_comparison);
+        renderTopTable("datasetTopBody", rankedRows);
     } catch (error) {
         renderEmptyCard(
             "datasetBestCard",
@@ -390,6 +591,7 @@ async function datasetRecommendation() {
             "Dataset recommendation failed",
             error.message
         );
+        renderTopComparison(null);
         renderTopTable("datasetTopBody", []);
     }
 }
@@ -438,14 +640,29 @@ function exportCsv() {
     }
 
     const csvRows = [
-        ["#", "Material Name", "Type", "Eco Score", "Predicted Cost", "Predicted CO2"],
+        [
+            "#",
+            "Material Name",
+            "Type",
+            "Eco Score",
+            "Final Ranking Score",
+            "Predicted Cost",
+            "Predicted CO2",
+            "Durability Score",
+            "Biodegradability Score",
+            "Recyclability Percentage"
+        ],
         ...latestTopRanked.map((row, index) => [
             index + 1,
             row.material_name,
             row.material_type,
             row.eco_score,
+            row.final_ranking_score ?? row.eco_score,
             row.predicted_cost,
-            row.predicted_co2
+            row.predicted_co2,
+            row.durability_score,
+            row.biodegradability_score,
+            row.recyclability_percentage
         ])
     ];
 
@@ -488,7 +705,7 @@ async function initBaseUrl() {
         // ignore
     }
 
-    input.value = "http://127.0.0.1:5000";
+    input.value = origin;
 }
 
 function attachEvents() {

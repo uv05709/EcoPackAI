@@ -642,6 +642,120 @@ body {
     line-height: 1.75;
 }
 
+.recommendation-note p {
+    line-height: 1.7;
+}
+
+.recommendation-points {
+    margin: 0;
+    padding-left: 18px;
+    color: #355644;
+}
+
+.recommendation-points li {
+    margin-bottom: 4px;
+}
+
+.comparison-grid {
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(220, 232, 222, 0.9);
+    box-shadow: var(--shadow-soft);
+    background: var(--panel);
+    padding: 20px;
+}
+
+.comparison-summary {
+    margin-bottom: 14px;
+    border: 1px solid #d7e6db;
+    background: #f5fbf7;
+    border-radius: 14px;
+    padding: 12px 14px;
+    color: #2b5a41;
+    font-weight: 600;
+}
+
+.comparison-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+}
+
+.comparison-card {
+    border: 1px solid #dbe8de;
+    border-radius: 16px;
+    background: #ffffff;
+    padding: 16px;
+}
+
+.comparison-winner {
+    border-color: #86be99;
+    box-shadow: 0 10px 20px rgba(26, 95, 59, 0.12);
+    background: linear-gradient(180deg, #f8fdf9 0%, #ffffff 55%);
+}
+
+.comparison-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.comparison-rank {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--sage-700);
+}
+
+.comparison-card h4 {
+    margin: 0 0 4px;
+    font-size: 1.06rem;
+    font-weight: 700;
+}
+
+.comparison-type {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.compare-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #eef7f0;
+    border: 1px solid #d8e9dd;
+    color: #1d6847;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.comparison-metrics {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.comparison-metrics div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1px solid #edf3ee;
+    border-radius: 10px;
+    padding: 8px 10px;
+}
+
+.comparison-metrics span {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.comparison-metrics strong {
+    color: var(--ink);
+    font-size: 0.86rem;
+}
+
 .ec-table thead th {
     background: #f4faf5;
     color: #315442;
@@ -778,6 +892,54 @@ body {
 .kpi-desc {
     color: var(--muted);
     font-size: 0.9rem;
+}
+
+.insight-card {
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    border: 1px solid rgba(220, 232, 222, 0.9);
+    background: linear-gradient(180deg, #f9fdf9 0%, #ffffff 65%);
+    box-shadow: var(--shadow-soft);
+    height: 100%;
+}
+
+.insight-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid #d9e9dc;
+    background: #edf7ef;
+    color: var(--sage-700);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.insight-card h5 {
+    margin: 10px 0 8px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.insight-value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--sage-800);
+    margin-bottom: 8px;
+}
+
+.insight-card p {
+    color: var(--muted);
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.insight-action {
+    font-size: 0.88rem;
+    color: #355644;
+    line-height: 1.5;
 }
 
 .chart-card {
